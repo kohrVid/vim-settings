@@ -26,7 +26,7 @@ hi Normal guifg=#e0f2f1 guibg=#000000 guisp=#000000 gui=NONE ctermfg=195 ctermbg
 "hi CTagsClass -- no settings --
 "hi clear -- no settings --
 hi IncSearch guifg=#192224 guibg=#00d9b8 guisp=#00d9b8 gui=NONE ctermfg=235 ctermbg=43 cterm=NONE
-hi WildMenu guifg=NONE guibg=#A1A6A8 guisp=#A1A6A8 gui=NONE ctermfg=NONE ctermbg=248 cterm=NONE
+hi WildMenu guifg=NONE guibg=#00d9b8 guisp=#00d9b8 gui=NONE ctermfg=NONE ctermbg=43 cterm=NONE
 hi SignColumn guifg=#192224 guibg=#536991 guisp=#536991 gui=NONE ctermfg=235 ctermbg=60 cterm=NONE
 hi SpecialComment guifg=#009687 guibg=NONE guisp=NONE gui=NONE ctermfg=30 ctermbg=NONE cterm=NONE
 hi Typedef guifg=#304ffe guibg=NONE guisp=NONE gui=bold ctermfg=13 ctermbg=NONE cterm=bold
@@ -80,7 +80,7 @@ hi Exception guifg=#64ffdb guibg=NONE guisp=NONE gui=bold ctermfg=86 ctermbg=NON
 hi Keyword guifg=#00bfa6 guibg=NONE guisp=NONE gui=bold ctermfg=4 ctermbg=NONE cterm=bold
 hi Type guifg=#304ffe guibg=NONE guisp=NONE gui=bold ctermfg=13 ctermbg=NONE cterm=bold
 hi DiffChange guifg=NONE guibg=#00695d guisp=#00695d gui=NONE ctermfg=NONE ctermbg=23 cterm=NONE
-hi Cursor guifg=#192224 guibg=#F9F9F9 guisp=#F9F9F9 gui=NONE ctermfg=235 ctermbg=15 cterm=NONE
+hi Cursor guifg=#000000 guibg=#00d9b8 guisp=#00d9b8 gui=NONE ctermfg=NONE ctermbg=43 cterm=NONE
 hi SpellLocal guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189 ctermbg=235 cterm=underline
 hi Error guifg=#00d9b8 guibg=#ff1745 guisp=#ff1745 gui=NONE ctermfg=43 ctermbg=197 cterm=NONE
 hi PMenu guifg=#192224 guibg=#9fa8da guisp=#9fa8da gui=NONE ctermfg=235 ctermbg=146 cterm=NONE
@@ -88,7 +88,7 @@ hi SpecialKey guifg=#5E6C70 guibg=NONE guisp=NONE gui=italic ctermfg=66 ctermbg=
 hi Constant guifg=#A1A6A8 guibg=NONE guisp=NONE gui=NONE ctermfg=248 ctermbg=NONE cterm=NONE
 hi Tag guifg=#009687 guibg=NONE guisp=NONE gui=NONE ctermfg=30 ctermbg=NONE cterm=NONE
 hi String guifg=#A1A6A8 guibg=NONE guisp=NONE gui=NONE ctermfg=248 ctermbg=NONE cterm=NONE
-hi PMenuThumb guifg=NONE guibg=#a4a6a8 guisp=#a4a6a8 gui=NONE ctermfg=NONE ctermbg=248 cterm=NONE
+hi PMenuThumb guifg=NONE guibg=#00d9b8 guisp=#00d9b8 gui=NONE ctermfg=NONE ctermbg=43 cterm=NONE
 hi MatchParen guifg=#009687 guibg=NONE guisp=NONE gui=bold ctermfg=30 ctermbg=NONE cterm=bold
 hi Repeat guifg=#3d5afe guibg=NONE guisp=NONE gui=bold ctermfg=13 ctermbg=NONE cterm=bold
 hi SpellBad guifg=#F9F9FF guibg=#192224 guisp=#192224 gui=underline ctermfg=189 ctermbg=235 cterm=underline
