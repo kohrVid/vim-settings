@@ -1,8 +1,11 @@
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
-vnoremap < <gv
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
 vnoremap > >gv
+vnoremap < <gv
 autocmd vimenter * NERDTree
 
 set nu
@@ -18,6 +21,7 @@ let g:user_emmet_settings = { "haml" : { "extends" : "html" }, "erb" : { "extend
 set shiftwidth=2
 "set tabstop=3
 set softtabstop=2
+set expandtab
 set backspace=2 " make backspace work like most other apps (Mac only)
 "set completeopt=longest,menu,preview
 "filetype plugin on
@@ -33,5 +37,3 @@ au FileType c setl ofu=ccomplete#CompleteCpp
 au FileType css setl ofu=csscomplete#CompleteCSS
 au BufNewFile,BufRead *.handlebars set filetype=html
 autocmd BufNewFile,BufRead *.md set filetype=markdown
-
-
