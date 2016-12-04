@@ -14,4 +14,5 @@ git clone https://github.com/vim-ruby/vim-ruby.git;
 git clone https://github.com/slim-template/vim-slim.git;
 git clone https://github.com/mzlogin/vim-markdown-toc.git;
 git clone https://github.com/ctrlpvim/ctrlp.vim.git;
+git clone https://github.com/EvanDotPro/nerdtree-chmod.git;
 )
