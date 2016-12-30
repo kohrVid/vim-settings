@@ -8,6 +8,8 @@ vnoremap > >gv
 vnoremap < <gv
 autocmd vimenter * NERDTree
 
+:silent !mkdir %:p:h
+
 set nu
 set t_Co=256
 set ruler
