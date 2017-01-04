@@ -1,3 +1,14 @@
+if [ ! -f ~/.vim/autoload/pathogen.vim ]
+then
+  mkdir -p ~/.vim/autoload 
+  curl -o ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+  mkdir -p ~/.vim/colors
+  cp ./tyk.vim ~/.vim/colors
+  cp ./vimrc ~/.vimrc
+else
+  echo "Pathogen file present. Please manually add vimrc and colours scheme where needed."
+fi
+
 (cd ~/.vim/bundle;
 git clone https://github.com/Valloric/YouCompleteMe.git;
 git clone https://github.com/mattn/emmet-vim.git;
