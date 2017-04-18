@@ -8,7 +8,9 @@ then
 else
   echo "Pathogen file present. Please manually add vimrc and colours scheme where needed."
 fi
-[ -z ~/.vim/bundle ] && mkdir -p ~/.vim/bundle || echo "Bundle folder present"
+
+test -d "~/.vim/bundle" && echo "Bundle folder present" || mkdir -p ~/.vim/bundle
+
 (cd ~/.vim/bundle;
 git clone https://github.com/Valloric/YouCompleteMe.git;
 git clone https://github.com/mattn/emmet-vim.git;
