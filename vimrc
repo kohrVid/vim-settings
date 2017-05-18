@@ -19,9 +19,10 @@ let g:colorscheme_switcher_exclude = ["default", "dw_red", "murphy", "koehler", 
 
 let g:NERDTreeWinSize=20
 let g:user_emmet_settings = { "haml" : { "extends" : "html" }, "erb" : { "extends" : "html" } }
+let g:go_fmt_command = "goimports"
 "in vagrant, use:
-"let g:NERDTreeDirArrowExpandable = '>>'
-"let g:NERDTreeDirArrowCollapsible = 'v'
+"let g:NERDTreeDirArrowExpandable = '►' "'>>'
+"let g:NERDTreeDirArrowCollapsible = '▼'
 
 set shiftwidth=2
 "set tabstop=3
@@ -42,3 +43,4 @@ au FileType c setl ofu=ccomplete#CompleteCpp
 au FileType css setl ofu=csscomplete#CompleteCSS
 au BufNewFile,BufRead *.handlebars set filetype=html
 autocmd BufNewFile,BufRead *.md set filetype=markdown
+autocmd FileType text,markdown let b:vcm_tab_complete = 'dict'
