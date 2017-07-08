@@ -34,4 +34,5 @@ git clone https://github.com/scrooloose/nerdcommenter.git;
 git clone https://github.com/tpope/vim-fugitive.git;
 git clone https://github.com/gregsexton/gitv.git;
 git clone https://github.com/jiangmiao/auto-pairs.git;
+git clone https://github.com/easymotion/vim-easymotion.git;
 )

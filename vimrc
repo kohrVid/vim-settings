@@ -21,6 +21,7 @@ let g:NERDTreeWinSize=20
 let g:user_emmet_settings = { "haml" : { "extends" : "html" }, "erb" : { "extends" : "html" } }
 let g:html_indent_inctags = "html,body,head,tbody,p"
 let g:go_fmt_command = "goimports"
+let g:EasyMotion_leader_key = "<Leader>"
 "in vagrant, use:
 "let g:NERDTreeDirArrowExpandable = '►' "'>>'
 "let g:NERDTreeDirArrowCollapsible = '▼'
