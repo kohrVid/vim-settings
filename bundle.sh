@@ -13,7 +13,6 @@ test -d "~/.vim/bundle" && echo "Bundle folder present" || mkdir -p ~/.vim/bundl
 
 (cd ~/.vim/bundle;
 git clone git://github.com/ajh17/VimCompletesMe.git;
-#git clone https://github.com/Valloric/YouCompleteMe.git;
 git clone https://github.com/mattn/emmet-vim.git;
 git clone https://github.com/claco/jasmine.vim.git;
 git clone https://github.com/scrooloose/nerdtree.git;
@@ -29,10 +28,23 @@ git clone https://github.com/slim-template/vim-slim.git;
 git clone https://github.com/mzlogin/vim-markdown-toc.git;
 git clone https://github.com/ctrlpvim/ctrlp.vim.git;
 git clone https://github.com/EvanDotPro/nerdtree-chmod.git;
-#git clone https://github.com/vim-airline/vim-airline.git;
 git clone https://github.com/scrooloose/nerdcommenter.git;
 git clone https://github.com/tpope/vim-fugitive.git;
 git clone https://github.com/gregsexton/gitv.git;
 git clone https://github.com/jiangmiao/auto-pairs.git;
 git clone https://github.com/easymotion/vim-easymotion.git;
+git clone https://github.com/mileszs/ack.vim.git;
 )
+
+OS=$(uname)
+case $OS in
+  'Linux')
+    sudo aptitude install silversearcher-ag
+    ;;
+  'Darwin')
+    brew install ag
+    ;;
+  *)
+    echo "Please install SilverSearcher for $OS"
+    ;;
+esac
