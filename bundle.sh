@@ -32,19 +32,21 @@ git clone https://github.com/scrooloose/nerdcommenter.git;
 git clone https://github.com/tpope/vim-fugitive.git;
 git clone https://github.com/gregsexton/gitv.git;
 git clone https://github.com/jiangmiao/auto-pairs.git;
-git clone https://github.com/easymotion/vim-easymotion.git;
-git clone https://github.com/mileszs/ack.vim.git;
+git clone https://github.com/justinmk/vim-sneak.git;
 )
 
-OS=$(uname)
-case $OS in
-  'Linux')
-    sudo aptitude install silversearcher-ag
-    ;;
-  'Darwin')
-    brew install ag
-    ;;
-  *)
-    echo "Please install SilverSearcher for $OS"
-    ;;
-esac
+if [[ -z $(which ag) ]]
+  then
+    OS=$(uname)
+    case $OS in
+      'Linux')
+        sudo aptitude install silversearcher-ag
+        ;;
+      'Darwin')
+        brew install ag
+        ;;
+      *)
+        echo "Please install SilverSearcher for $OS"
+        ;;
+    esac
+fi
