@@ -33,11 +33,16 @@ if executable('ag')
 endif
 
 filetype plugin indent on
-inoremap <S-Tab> <C-D>
-nnoremap <S-Tab> <<_
-nnoremap <Tab> >>_
-vnoremap < <gv
-vnoremap > >gv
+imap <S-Tab> <C-D>
+nmap <S-Tab> <<_
+nmap <Tab> >>_
+vmap < <gv
+vmap > >gv
+
+map  / <Plug>(easymotion-sn)
+nmap s <Plug>(easymotion-s2)
+nmap t <Plug>(easymotion-t2)
+omap / <Plug>(easymotion-tn)
 
 au BufNewFile,BufRead *.handlebars set filetype=html
 au BufNewFile,BufRead *.md set filetype=markdown
