@@ -37,9 +37,23 @@ command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 autocmd QuickFixCmdPost *Ag* silent! cwindow
 autocmd QuickFixCmdPost *grep* silent! cwindow
 nmap H <C-W><CR><C-W>K<C-W>b
-nmap h <C-W>f
-nmap gv <C-W>f<CR><C-W>L<C-W>b<C-W>L<C-W>p
-nmap t <C-W><CR><C-W>T
+nmap <C-H> <C-W>f
+nmap <C-V> <C-W>f<CR><C-W>L<C-W>b<C-W>L<C-W>p
+nmap <C-T> <C-W><CR><C-W>T
+
+"Quote/Unquote
+vmap Q" :s/\%V"//g<CR>
+vmap Q' :s/\%V'//g<CR>
+vmap Q( :s/\%V(//g<CR>:s/\%V)//g<CR><CR>
+vmap Q< :s/\%V<//g<CR>:s/\%V>//g<CR><CR>
+vmap Q[ :s/\%V\[//g<CR>:s/\%V\]//g<CR><CR>
+vmap Q{ :s/\%V{//g<CR>:s/\%V}//g<CR><CR>
+vmap q" c""<ESC>P
+vmap q' c''<ESC>P
+vmap q( c()<ESC>P
+vmap q< c<><ESC>P
+vmap q[ c[]<ESC>P
+vmap q{ c{}<ESC>P
 
 filetype plugin indent on
 imap <S-Tab> <C-D>
