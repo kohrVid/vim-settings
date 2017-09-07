@@ -2,6 +2,7 @@ execute pathogen#infect()
 syntax on
 colorscheme roo
 au vimenter * NERDTree
+nmap <F6> :NERDTreeToggle<CR>
 silent! mkdir %:p:h
 let g:NERDTreeWinSize=30
 let g:colorscheme_switcher_exclude = ["default", "dw_red", "murphy", "koehler", "morning", "pablo", "peachpuff", "ron", "shine", "slate", "torte", "zellner", "blue", "darkblue", "delek", "desert", "elflord", "evening", "industry"]
@@ -61,6 +62,10 @@ nmap <S-Tab> <<_
 nmap <Tab> >>_
 vmap < <gv
 vmap > >gv
+
+map <F2> :let &cc = &cc == '' ? '80' : ''<CR>
+map <F3> :set cursorcolumn!<Bar>set cursorline!<CR>
+
 
 nmap <silent><Leader>rs :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 

@@ -33,6 +33,8 @@ git clone https://github.com/tpope/vim-fugitive.git;
 git clone https://github.com/gregsexton/gitv.git;
 git clone https://github.com/jiangmiao/auto-pairs.git;
 git clone https://github.com/justinmk/vim-sneak.git;
+git clone https://github.com/elixir-editors/vim-elixir.git;
+git clone https://github.com/derekwyatt/vim-scala.git;
 )
 
 if [[ -z $(which ag) ]]
