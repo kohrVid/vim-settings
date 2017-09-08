@@ -1,6 +1,6 @@
 if [ ! -f ~/.vim/autoload/pathogen.vim ]
 then
-  mkdir -p ~/.vim/autoload 
+  mkdir -p ~/.vim/autoload
   curl -o ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
   mkdir -p ~/.vim/colors
   cp ./tyk.vim ~/.vim/colors
@@ -36,6 +36,14 @@ git clone https://github.com/justinmk/vim-sneak.git;
 git clone https://github.com/elixir-editors/vim-elixir.git;
 git clone https://github.com/derekwyatt/vim-scala.git;
 )
+
+if [ ! -d ~/.vim/ftdetect ]
+  then
+    mkdir -p ~/.vim/{ftdetect,indent,syntax}
+    for d in ftdetect indent syntax ; do
+      curl -o ~/.vim/$d/scala.vim https://raw.githubusercontent.com/derekwyatt/vim-scala/master/$d/scala.vim
+    done
+fi
 
 if [[ -z $(which ag) ]]
   then
