@@ -30,8 +30,8 @@ let g:user_emmet_settings = { "haml" : { "extends" : "html" }, "erb" : { "extend
 
 if executable('ag')
   " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  set grepprg=pt\ --nogroup\ --nocolor
+  let g:ctrlp_user_command = 'pt %s -l --nocolor -g ""'
   let g:ctrlp_use_caching = 0
 endif
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!

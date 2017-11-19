@@ -45,18 +45,24 @@ if [ ! -d ~/.vim/ftdetect ]
     done
 fi
 
-if [[ -z $(which ag) ]]
+if [[ -z $(which pt) ]]
   then
     OS=$(uname)
     case $OS in
       'Linux')
-        sudo aptitude install silversearcher-ag
+        if [[ -z $GOPATH ]]
+        then
+          go get -u github.com/monochromegane/the_platinum_searcher/...
+          go get -d -f -fix -t -u github.com/monochromegane/the_platinum_searcher/...
+        else
+          echo "Please set your GOPATH and try again"
+        fi
         ;;
       'Darwin')
-        brew install ag
+        brew update && brew install pt
         ;;
       *)
-        echo "Please install SilverSearcher for $OS"
+        echo "Please install PlatinumSearcher for $OS"
         ;;
     esac
 fi
