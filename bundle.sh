@@ -51,12 +51,13 @@ if [[ -z $(which pt) ]]
     OS=$(uname)
     case $OS in
       'Linux')
-        if [[ -z $GOPATH ]]
+        if [[ -n $GOPATH ]]
         then
           go get -u github.com/monochromegane/the_platinum_searcher/...
           go get -d -f -fix -t -u github.com/monochromegane/the_platinum_searcher/...
+          sudo ln -s $GOPATH/bin/pt /usr/bin/pt
         else
-          echo "Please set your GOPATH and try again"
+          echo "Please set and export your GOPATH before trying again"
         fi
         ;;
       'Darwin')
