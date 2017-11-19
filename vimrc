@@ -4,16 +4,18 @@ colorscheme roo
 au vimenter * NERDTree
 nmap <F6> :NERDTreeToggle<CR>
 silent! mkdir %:p:h
-let g:NERDTreeWinSize=30
+let g:NERDTreeWinSize=20
 let g:colorscheme_switcher_exclude = ["default", "dw_red", "murphy", "koehler", "morning", "pablo", "peachpuff", "ron", "shine", "slate", "torte", "zellner", "blue", "darkblue", "delek", "desert", "elflord", "evening", "industry"]
 
 set backspace=2 " make backspace work like most other apps (Mac only)
 set expandtab
+set foldmethod=manual
 set nu
 set omnifunc=syntaxcomplete#Complete
 set ruler
 set shiftwidth=2
 set softtabstop=2
+set timeoutlen=1000 ttimeoutlen=0
 set t_Co=256
 "set completeopt=longest,menu,preview
 "set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -55,6 +57,7 @@ vmap q( c()<ESC>P
 vmap q< c<><ESC>P
 vmap q[ c[]<ESC>P
 vmap q{ c{}<ESC>P
+"vmap qs{ cs{\ \ }<ESC>P
 
 filetype plugin indent on
 imap <S-Tab> <C-D>
@@ -63,10 +66,16 @@ nmap <Tab> >>_
 vmap < <gv
 vmap > >gv
 
+"Toggle margin
 map <F2> :let &cc = &cc == '' ? '80' : ''<CR>
+
 map <F3> :set cursorcolumn!<Bar>set cursorline!<CR>
 
+"Increment integers in lines
+nmap <C-m> Yp<C-A>
+nmap <C-n> Yp<C-X>
 
+"Remove trailing whitespace
 nmap <silent><Leader>rs :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
 au BufNewFile,BufRead *.handlebars set filetype=html
@@ -77,4 +86,3 @@ au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
 au FileType php setl ofu=phpcomplete#CompletePHP
 au FileType ruby,eruby setl ofu=rubycomplete#Complete
 au FileType text,markdown let b:vcm_tab_complete = 'dict'
-autocmd BufRead,BufNewFile *.sc set filetype=scala

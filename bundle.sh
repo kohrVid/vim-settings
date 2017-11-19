@@ -35,6 +35,7 @@ git clone https://github.com/jiangmiao/auto-pairs.git;
 git clone https://github.com/justinmk/vim-sneak.git;
 git clone https://github.com/elixir-editors/vim-elixir.git;
 git clone https://github.com/derekwyatt/vim-scala.git;
+git clone git://github.com/airblade/vim-gitgutter.git;
 )
 
 if [ ! -d ~/.vim/ftdetect ]
