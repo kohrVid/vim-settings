@@ -9,7 +9,8 @@ let g:colorscheme_switcher_exclude = ["default", "dw_red", "murphy", "koehler", 
 
 set backspace=2 " make backspace work like most other apps (Mac only)
 set expandtab
-set foldmethod=manual
+set foldmethod=syntax
+set nofen
 set nu
 set omnifunc=syntaxcomplete#Complete
 set ruler
@@ -19,8 +20,12 @@ set timeoutlen=1000 ttimeoutlen=0
 set t_Co=256
 "set completeopt=longest,menu,preview
 "set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 "In Debian based systems, use:
 "set clipboard=unnamedplus
+
+"Disable the bloody mouse in nvim
+set mouse=c
 
 let g:go_fmt_command = "goimports"
 let g:html_indent_inctags = "html,body,head,tbody,p"
@@ -72,8 +77,8 @@ map <F2> :let &cc = &cc == '' ? '80' : ''<CR>
 map <F3> :set cursorcolumn!<Bar>set cursorline!<CR>
 
 "Increment integers in lines
-nmap <C-m> Yp<C-A>
-nmap <C-n> Yp<C-X>
+nmap <C-M> Yp<C-A>
+nmap <C-N> Yp<C-X>
 
 "Remove trailing whitespace
 nmap <silent><Leader>rs :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
