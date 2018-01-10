@@ -35,19 +35,24 @@ let g:user_emmet_settings = { "haml" : { "extends" : "html" }, "erb" : { "extend
 "let g:NERDTreeDirArrowExpandable = '►' "'>>'
 "let g:NERDTreeDirArrowCollapsible = '▼'
 
-if executable('ag')
+if executable('pt')
   " Use ag over grep
   set grepprg=pt\ --nogroup\ --nocolor
   let g:ctrlp_user_command = 'pt %s -l --nocolor -g ""'
   let g:ctrlp_use_caching = 0
+  let g:ctrlp_max_files=0
+  let g:ctrlp_max_depth=40
+  let g:ctrlp_max_height=40
+  let g:ctrlp_regexp = 1
 endif
-command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-autocmd QuickFixCmdPost *Ag* silent! cwindow
+"command -nargs=+ -complete=file -bar pt silent! grep! <args>|cwindow|redraw!
 autocmd QuickFixCmdPost *grep* silent! cwindow
 nmap H <C-W><CR><C-W>K<C-W>b
 nmap <C-H> <C-W>f
-nmap <C-V> <C-W>f<CR><C-W>L<C-W>b<C-W>L<C-W>p
+nmap <C-V> <C-W>f<CR><C-W>L<C-W>b<C-W>L<C-W>
+"nmap <C-V> <C-W>f<CR><C-W>L<C-W>b<C-W>L<C-W>p
 nmap <C-T> <C-W><CR><C-W>T
+nmap <C-O> <C-W><CR>R
 
 "Quote/Unquote
 vmap Q" :s/\%V"//g<CR>
@@ -82,6 +87,12 @@ nmap <C-N> Yp<C-X>
 
 "Remove trailing whitespace
 nmap <silent><Leader>rs :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
+"Fixing duplicate line bug
+nmap <CR> <CR>
+vmap <CR> <CR>
 
 au BufNewFile,BufRead *.handlebars set filetype=html
 au BufNewFile,BufRead *.md set filetype=markdown
