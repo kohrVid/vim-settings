@@ -36,6 +36,8 @@ git clone https://github.com/justinmk/vim-sneak.git;
 git clone https://github.com/elixir-editors/vim-elixir.git;
 git clone https://github.com/derekwyatt/vim-scala.git;
 git clone git://github.com/airblade/vim-gitgutter.git;
+git clone https://github.com/tpope/vim-rhubarb.git;
+vim -u NONE -c "helptags vim-rhubarb/doc" -c q;
 )
 
 if [ ! -d ~/.vim/ftdetect ]
