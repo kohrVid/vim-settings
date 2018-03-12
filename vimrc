@@ -102,3 +102,5 @@ au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
 au FileType php setl ofu=phpcomplete#CompletePHP
 au FileType ruby,eruby setl ofu=rubycomplete#Complete
 au FileType text,markdown let b:vcm_tab_complete = 'dict'
+au FileType scala
+  \ au BufWritePost * call SortScalaImports()
