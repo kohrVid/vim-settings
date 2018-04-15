@@ -61,13 +61,28 @@ vmap Q( :s/\%V(//g<CR>:s/\%V)//g<CR><CR>
 vmap Q< :s/\%V<//g<CR>:s/\%V>//g<CR><CR>
 vmap Q[ :s/\%V\[//g<CR>:s/\%V\]//g<CR><CR>
 vmap Q{ :s/\%V{//g<CR>:s/\%V}//g<CR><CR>
+vmap Q` :s/\%V`//g<CR>
 vmap q" c""<ESC>P
 vmap q' c''<ESC>P
 vmap q( c()<ESC>P
 vmap q< c<><ESC>P
 vmap q[ c[]<ESC>P
 vmap q{ c{}<ESC>P
-"vmap qs{ cs{\ \ }<ESC>P
+vmap q` c``<ESC>P
+vmap q- c--<ESC>P
+vmap q_ c__<ESC>P
+vmap q3' c'''<ESC>p
+vmap q3" c"""<ESC>p
+vmap qss c  <ESC>P
+vmap qs{ c{ <ESC>p}<CR>
+vmap qs[ c[ <ESC>p]<CR>
+vmap qs( c( <ESC>p)<CR>
+vmap qs< c< <ESC>p><CR>
+vmap qs' c' <ESC>p'<CR>
+vmap qs" c" <ESC>p"<CR>
+vmap qs` c` <ESC>p`<CR>
+vmap qs- c- <ESC>p-<CR>
+vmap qs_ c_ <ESC>p_<CR>
 
 filetype plugin indent on
 imap <S-Tab> <C-D>
@@ -93,6 +108,9 @@ match ExtraWhitespace /\s\+$/
 "Fixing duplicate line bug
 nmap <CR> <CR>
 vmap <CR> <CR>
+
+"Pretty-print JSON
+nmap <silent><Leader>json :%!python -m json.tool
 
 au BufNewFile,BufRead *.handlebars set filetype=html
 au BufNewFile,BufRead *.md set filetype=markdown
