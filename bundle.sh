@@ -38,6 +38,7 @@ git clone https://github.com/derekwyatt/vim-scala.git;
 git clone git://github.com/airblade/vim-gitgutter.git;
 git clone https://github.com/udalov/kotlin-vim;
 git clone https://github.com/tpope/vim-rhubarb.git;
+git clone https://github.com/hashivim/vim-terraform.git;
 vim -u NONE -c "helptags vim-rhubarb/doc" -c q;
 )
 
