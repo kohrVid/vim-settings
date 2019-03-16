@@ -22,7 +22,7 @@ set t_Co=256
 "set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 "In Debian based systems, use:
-"set clipboard=unnamedplus
+set clipboard=unnamedplus
 
 "Disable the bloody mouse in nvim
 set mouse=c
