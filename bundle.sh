@@ -3,7 +3,7 @@ then
   mkdir -p ~/.vim/autoload
   curl -o ~/.vim/autoload/pathogen.vim https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
   mkdir -p ~/.vim/colors
-  cp ./tyk.vim ~/.vim/colors
+  cp colours/* ~/.vim/colors/
   cp ./vimrc ~/.vimrc
 else
   echo "Pathogen file present. Please manually add vimrc and colours scheme where needed."

@@ -1,6 +1,6 @@
 execute pathogen#infect()
 syntax on
-colorscheme roo
+colorscheme medea_X
 au vimenter * NERDTree
 nmap <F6> :NERDTreeToggle<CR>
 silent! mkdir %:p:h
