@@ -2,7 +2,7 @@
 
 main() {
   sudo apt-get update
-  sudo apt-get install git vim clamav ssh make
+  sudo apt-get install git vim clamav ssh make rsync gnupg2
   mkdir -p ~/Documents/go ~/Documents/Programmes ~/Documents/vim
   echo "Please enter your full name..."
   read GIT_NAME
@@ -12,12 +12,18 @@ main() {
   read IS_A_VM
   echo "Run an AV scan (Could take up to 30 mins)? (Y/N)"
   read RUN_SCAN
+  echo "Would you like to install ruby? (Y/N)"
+  read INSTALL_RUBY
+  echo "Would you like to install scala? (Y/N)"
+  read INSTALL_SCALA
 
   clamScan "$RUN_SCAN"
   gitConfig "$GIT_NAME" "$GIT_EMAIL"
   goInstall "1.12.1"
   vimConfig
   tmuxInstall
+  rubyInstall "$INSTALL_RUBY"
+  scalaInstall "$INSTALL_SCALA"
 
   if [ `echo $IS_A_VM | awk '{print toupper($0)}'` = "N" ]
   then
@@ -77,6 +83,39 @@ tmuxInstall() {
   ./configure && make
   sudo ln -s ~/Documents/Programmes/tmux/tmux /usr/bin/tmux
   cp ~/Documents/vim/vim-settings/config/tmux.conf ~/.tmux.conf
+}
+
+rubyInstall() {
+  if [ `echo "$1" | awk '{print toupper($0)}'` = "Y" ]
+  then
+    cd ~/Documents/Programmes/
+    echo "Installing ruby...."
+    gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+    \curl -sSL https://get.rvm.io | bash -s stable --rails
+    source ~/.bashrc
+    rvm pkg install openssl
+  else
+    echo "Skipping ruby installation"
+  fi
+}
+
+scalaInstall() {
+  if [ `echo "$1" | awk '{print toupper($0)}'` = "Y" ]
+  then
+    cd ~/Documents/Programmes/
+    echo "Installing scala...."
+    sudo apt-get install default-jre default-jdk
+    java_home="export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64\nexport PATH=\$JAVA_HOME/bin/:\$PATH"
+    echo $java_home >> ~/.bashrc
+    sudo echo $java_home >> /etc/environment
+    sudo apt-get install scala
+    echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+    sudo apt-get update
+    sudo apt-get install sbt
+  else
+    echo "Skipping scala installation"
+  fi
 }
 
 postGNOMEInstall() {
