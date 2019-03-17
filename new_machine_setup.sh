@@ -1,4 +1,5 @@
 #!/bin/bash
+
 main() {
   sudo apt-get update
   sudo apt-get install git vim clamav ssh make
@@ -9,7 +10,10 @@ main() {
   read GIT_EMAIL
   echo "Is this machine a VM? (Y/N)"
   read IS_A_VM
+  echo "Run an AV scan (Could take up to 30 mins)? (Y/N)"
+  read RUN_SCAN
 
+  clamScan "$RUN_SCAN"
   gitConfig "$GIT_NAME" "$GIT_EMAIL"
   goInstall "1.12.1"
   vimConfig
@@ -18,6 +22,17 @@ main() {
   if [ `echo $IS_A_VM | awk '{print toupper($0)}'` = "N" ]
   then
     postGNOMEInstall
+  fi
+}
+
+clamScan() {
+  if [ `echo "$1" | awk '{print toupper($0)}'` = "N" ]
+  then
+    echo "Skipping scan"
+  else
+    echo "Running scan...."
+    sudo mkdir /clam01
+    sudo clamscan --recursive=yes / --move=/clam01 -l /clam01.txt
   fi
 }
 
