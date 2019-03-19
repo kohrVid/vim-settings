@@ -134,6 +134,14 @@ guiAppInstall() {
   sudo dpkg -i cherrytree_0.38.8-0_all.deb
   curl -O https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
   sudo dpkg -i slack-desktop-3.3.8-amd64.deb
+  spotifyInstall
+}
+
+spotifyInstall() {
+  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+  echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+  sudo apt-get update
+  sudo apt-get install spotify-client
 }
 
 main
