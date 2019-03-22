@@ -132,9 +132,20 @@ guiAppInstall() {
   cd ~/Documents/Programmes
   curl -O http://www.giuspen.com/software/cherrytree_0.38.8-0_all.deb
   sudo dpkg -i cherrytree_0.38.8-0_all.deb
+  anacondaInstall
   curl -O https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
   sudo dpkg -i slack-desktop-3.3.8-amd64.deb
   spotifyInstall
+}
+
+anacondaInstall() {
+  cd ~/Documents/Programmes
+  curl -O https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
+  sudo chmod +x Anaconda3-2018.12-Linux-x86_64.sh
+  ./Anaconda3-2018.12-Linux-x86_64.sh
+  conda install -c anaconda-cluster scala
+  conda install -c r r-irkernel rpy2
+  conda install jupyter
 }
 
 spotifyInstall() {
