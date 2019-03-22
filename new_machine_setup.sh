@@ -105,6 +105,9 @@ scalaInstall() {
     cd ~/Documents/Programmes/
     echo "Installing scala...."
     sudo apt-get install default-jre default-jdk
+    curl -O https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.gz
+    sudo tar xvf openjdk-11.0.1_linux-x64_bin.tar.gz --directory /usr/lib/jvm/
+    /usr/lib/jvm/jdk-11.0.1/bin/java -version
     java_home="export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64\nexport PATH=\$JAVA_HOME/bin/:\$PATH"
     echo $java_home >> ~/.bashrc
     sudo echo $java_home >> /etc/environment
