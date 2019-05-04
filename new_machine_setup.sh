@@ -127,6 +127,7 @@ vimMetals() {
   cd /usr/bin
   sudo curl -L -o coursier https://git.io/coursier
   sudo chmod +x coursier
+
   sudo coursier bootstrap \
     --java-opt -Xss4m \
     --java-opt -Xms100m \
@@ -135,6 +136,8 @@ vimMetals() {
     -r bintray:scalacenter/releases \
     -r sonatype:snapshots \
     -o /usr/local/bin/metals-vim -f
+
+  touch .cache/metals/bsp.trace.json
 }
 
 nodeInstall() {
