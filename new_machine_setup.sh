@@ -117,9 +117,24 @@ scalaInstall() {
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
     sudo apt-get update
     sudo apt-get install sbt
+    vimMetals
   else
     echo "Skipping scala installation"
   fi
+}
+
+vimMetals() {
+  cd /usr/bin
+  sudo curl -L -o coursier https://git.io/coursier
+  sudo chmod +x coursier
+  sudo coursier bootstrap \
+    --java-opt -Xss4m \
+    --java-opt -Xms100m \
+    --java-opt -Dmetals.client=coc.nvim \
+    org.scalameta:metals_2.12:0.5.1 \
+    -r bintray:scalacenter/releases \
+    -r sonatype:snapshots \
+    -o /usr/local/bin/metals-vim -f
 }
 
 nodeInstall() {
