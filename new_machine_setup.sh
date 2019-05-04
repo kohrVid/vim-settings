@@ -50,8 +50,8 @@ gitConfig() {
     git config --global --replace-all user.name $1
     git config --global --replace-all user.email $2
     git config --system core.editor vim
-    echo "*.swp" >> ~/.gitignore_global
-    echo "*.swo" >> ~/.gitignore_global
+    mv config/gitignore_global ~/.gitignore_global
+    git config --global core.excludesfile ~/.gitignore_global
   fi
 }
 

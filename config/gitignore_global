@@ -1,0 +1,9 @@
+*.log
+.idea
+*.iml
+coverage
+node_modules
+*.sw[a-z]
+target/
+.metals/
+.bloop/
