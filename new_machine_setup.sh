@@ -64,6 +64,7 @@ goInstall() {
 }
 
 vimConfig() {
+  nodeInstall
   (cd ~/Documents/vim;
   git clone https://github.com/kohrVid/vim-settings.git;
   cd vim-settings;
@@ -121,11 +122,17 @@ scalaInstall() {
   fi
 }
 
+nodeInstall() {
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+  source ~/.nvm/nvm.sh
+  nvm install --lts
+  nvm use --lts
+}
+
 postGNOMEInstall() {
   cd ~/Documents/Programmes
   sudo apt-get install conky
   cp ~/Documents/vim/vim-settings/config/conkyrc ~/.conkyrc
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   cp ~/Documents/vim/vim-settings/config/zshrc ~/.zshrc
   guiAppInstall

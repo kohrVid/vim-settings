@@ -1,4 +1,44 @@
 execute pathogen#infect()
+silent! if  plug#begin('~/.vim/plugged')
+"Plugins
+Plug 'junegunn/vim-github-dashboard'
+Plug 'junegunn/vim-emoji'
+Plug 'junegunn/vim-journal'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
+Plug 'junegunn/vader.vim'
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#build()}}
+Plug 'junegunn/heytmux'
+Plug 'mattn/emmet-vim'
+Plug 'jwalton512/vim-blade'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries'  }
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'justinmk/vim-sneak'
+Plug 'elixir-editors/vim-elixir'
+Plug 'derekwyatt/vim-scala'
+Plug 'airblade/vim-gitgutter'
+Plug 'claco/jasmine.vim'
+Plug 'kchmck/vim-coffee-script'
+Plug 'xolox/vim-colorscheme-switcher'
+Plug 'briancollins/vim-jst'
+Plug 'xolox/vim-misc'
+Plug 'uarun/vim-protobuf'
+Plug 'vim-ruby/vim-ruby'
+Plug 'slim-template/vim-slim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'EvanDotPro/nerdtree-chmod'
+Plug 'jiangmiao/auto-pairs'
+Plug 'udalov/kotlin-vim'
+Plug 'tpope/vim-rhubarb'
+Plug 'hashivim/vim-terraform'
+Plug 'natebosch/vim-lsc'
+endif
+unlet! g:plug_url_format
+call plug#end()
+
+
 syntax on
 colorscheme medea_X
 au vimenter * NERDTree
@@ -34,6 +74,18 @@ let g:user_emmet_settings = { "haml" : { "extends" : "html" }, "erb" : { "extend
 "in vagrant, use:
 "let g:NERDTreeDirArrowExpandable = '►' "'>>'
 "let g:NERDTreeDirArrowCollapsible = '▼'
+
+let g:lsc_enable_autocomplete = v:false
+let g:lsc_server_commands = {
+  \  'scala': {
+  \    'command': 'metals-vim',
+  \    'log_level': 'Log'
+  \  }
+  \}
+
+let g:lsc_auto_map = {
+  \  'GoToDefinition': 'gd',
+  \}
 
 if executable('pt')
   " Use ag over grep
@@ -120,5 +172,6 @@ au FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
 au FileType php setl ofu=phpcomplete#CompletePHP
 au FileType ruby,eruby setl ofu=rubycomplete#Complete
 au FileType text,markdown let b:vcm_tab_complete = 'dict'
+au FileType json syntax match Comment +\/\/.\+$+
 au FileType scala
   \ au BufWritePost * call SortScalaImports()
