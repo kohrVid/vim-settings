@@ -2,7 +2,7 @@
 
 main() {
   sudo apt-get update
-  sudo apt-get install git vim clamav ssh make rsync gnupg2
+  sudo apt-get install git clamav ssh make rsync gnupg2
   mkdir -p ~/Documents/go ~/Documents/Programmes ~/Documents/vim
   echo "Please enter your full name..."
   read GIT_NAME
@@ -65,8 +65,13 @@ goInstall() {
 
 vimConfig() {
   nodeInstall
-  (cd ~/Documents/vim;
-  git clone https://github.com/kohrVid/vim-settings.git;
+  cd ~/Documents/vim
+
+  (git clone https://github.com/vim/vim.git;
+  cd vim/src;
+  make && sudo make install)
+
+  (git clone https://github.com/kohrVid/vim-settings.git;
   cd vim-settings;
   git remote remove origin;
   git remote add origin git@github.com:kohrVid/vim-settings.git;
@@ -137,7 +142,8 @@ vimMetals() {
     -r sonatype:snapshots \
     -o /usr/local/bin/metals-vim -f
 
-  touch .cache/metals/bsp.trace.json
+  mkdir -p ~/.cache/metals
+  touch ~/.cache/metals/bsp.trace.json
 }
 
 nodeInstall() {
