@@ -22,6 +22,7 @@ main() {
   goInstall "1.12.1"
   vimConfig
   tmuxInstall
+  terraformInstall
   rubyInstall "$INSTALL_RUBY"
   scalaInstall "$INSTALL_SCALA"
 
@@ -137,7 +138,7 @@ vimMetals() {
     --java-opt -Xss4m \
     --java-opt -Xms100m \
     --java-opt -Dmetals.client=coc.nvim \
-    org.scalameta:metals_2.12:0.5.1 \
+    org.scalameta:metals_2.12:0.5.2 \
     -r bintray:scalacenter/releases \
     -r sonatype:snapshots \
     -o /usr/local/bin/metals-vim -f
@@ -151,6 +152,13 @@ nodeInstall() {
   source ~/.nvm/nvm.sh
   nvm install --lts
   nvm use --lts
+}
+
+terraformInstall() {
+  cd ~/Documents/Programmes
+  curl -O https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
+  unzip terraform_0.11.13_linux_amd64.zip
+  sudo ln -s $HOME/Documents/Programmes/terraform /usr/bin/terraform
 }
 
 postGNOMEInstall() {
