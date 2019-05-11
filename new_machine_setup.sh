@@ -15,6 +15,8 @@ main() {
   read INSTALL_SCALA
   echo "Would you like to install docker? (Y/N)"
   read INSTALL_DOCKER
+  echo "Would you like to install haskell? (Y/N)"
+  read INSTALL_HASKELL
 
   sudo apt-get update
   sudo apt-get install software-properties-common systemd-services git clamav ssh make rsync gnupg2
@@ -29,6 +31,7 @@ main() {
   rubyInstall "$INSTALL_RUBY"
   scalaInstall "$INSTALL_SCALA"
   dockerInstall "$INSTALL_DOCKER"
+  haskellInstall "$INSTALL_HASKELL"
 
   if [ `echo $IS_A_VM | awk '{print toupper($0)}'` = "N" ]
   then
@@ -77,6 +80,10 @@ vimConfig() {
 
   (git clone https://github.com/vim/vim.git &&
   cd vim/src;
+  ./configure --enable-luainterp \
+            --enable-perlinterp \
+            --enable-pythoninterp \
+            --enable-rubyinterp
   make && sudo make install)
 
   (git clone https://github.com/kohrVid/vim-settings.git;
@@ -208,6 +215,24 @@ dockerInstall() {
     sudo apt-get -y install docker-ce docker-ce-cli containerd.io
   else
     echo "Skipping docker installation"
+  fi
+}
+
+haskellInstall() {
+  if [ `echo "$1" | awk '{print toupper($0)}'` = "Y" ]
+  then
+    sudo apt install libicu-dev libtinfo-dev libgmp-dev
+    sudo apt-install ghc
+    cd Documents/Programmes
+    curl -sSL https://get.haskellstack.org/ | sh
+    git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules
+    cd haskell-ide-engine
+    stack ./install.hs hie-8.4.4
+    stack ./install.hs build-doc
+    stack ./install.hs cabal-ghcs
+    sudo ln -s $HOME/.local/bin/hie-wrapper /usr/bin/hie-wrapper
+  else
+    echo "Skipping haskell installation"
   fi
 }
 
