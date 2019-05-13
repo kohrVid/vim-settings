@@ -159,6 +159,7 @@ terraformInstall() {
   curl -O https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
   unzip terraform_0.11.13_linux_amd64.zip
   sudo ln -s $HOME/Documents/Programmes/terraform /usr/bin/terraform
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/wata727/tflint/v0.7.5/install_linux.sh)"
 }
 
 postGNOMEInstall() {
