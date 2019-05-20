@@ -101,6 +101,9 @@ rubyInstall() {
     \curl -sSL https://get.rvm.io | bash -s stable --rails
     source ~/.bashrc
     rvm pkg install openssl
+    gem install solargraph
+    rm -rf $HOME/.yarn
+    vim "+CocInstall coc-solargraph" "+qall"
   else
     echo "Skipping ruby installation"
   fi
