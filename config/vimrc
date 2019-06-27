@@ -58,6 +58,7 @@ set shiftwidth=2
 set softtabstop=2
 set timeoutlen=1000 ttimeoutlen=0
 set t_Co=256
+set wrap
 "set completeopt=longest,menu,preview
 "set runtimepath^=~/.vim/bundle/ctrlp.vim
 
