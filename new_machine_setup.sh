@@ -16,6 +16,8 @@ main() {
   read INSTALL_RUBY
   echo "Would you like to install scala? (Y/N)"
   read INSTALL_SCALA
+  echo "Would you like to install docker? (Y/N)"
+  read INSTALL_DOCKER
 
   clamScan "$RUN_SCAN"
   gitConfig "$GIT_NAME" "$GIT_EMAIL"
@@ -25,6 +27,7 @@ main() {
   terraformInstall
   rubyInstall "$INSTALL_RUBY"
   scalaInstall "$INSTALL_SCALA"
+  dockerInstall "$INSTALL_DOCKER"
 
   if [ `echo $IS_A_VM | awk '{print toupper($0)}'` = "N" ]
   then
@@ -165,6 +168,33 @@ terraformInstall() {
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/wata727/tflint/v0.7.5/install_linux.sh)"
 }
 
+dockerInstall() {
+  if [ `echo "$1" | awk '{print toupper($0)}'` = "Y" ]
+  then
+    sudo apt-get -y remove docker docker-engine docker.io containerd runc
+    sudo apt-get -y update
+
+    sudo apt-get -y install \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      gnupg-agent \
+      software-properties-common
+
+    curl -fsSL https://download.docker.com/linux/`whatIsMyDistro`/gpg | sudo apt-key add -
+
+    sudo add-apt-repository \
+     "deb [arch=amd64] https://download.docker.com/linux/`whatIsMyDistro` \
+     $(lsb_release -cs) \
+     stable"
+
+    sudo apt-get -y update
+    sudo apt-get -y install docker-ce docker-ce-cli containerd.io
+  else
+    echo "Skipping docker installation"
+  fi
+}
+
 postGNOMEInstall() {
   cd ~/Documents/Programmes
   sudo apt-get install conky
@@ -199,6 +229,22 @@ spotifyInstall() {
   echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
   sudo apt-get update
   sudo apt-get install spotify-client
+}
+
+whatIsMyDistro() {
+  if [[ "`hostnamectl`" =~ 'Ubuntu' ]]
+  then
+    echo "ubuntu"
+  elif [[ "`hostnamectl`" =~ 'Debian' ]]
+  then
+    echo "debian"
+  #elif [[ "`hostnamectl`" =~ 'Fedora' ]]
+  #then
+    #echo "fedora"
+  else
+    echo "Unknown distro" 1>&2
+    exit 1
+  fi
 }
 
 main
