@@ -65,13 +65,14 @@ goInstall() {
   sudo tar -C /usr/local -xzf "go$1.linux-amd64.tar.gz"
   echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.bashrc
   echo "export GOPATH=$HOME/Documents/go" >> ~/.bashrc
+  source ~/.bashrc
 }
 
 vimConfig() {
   nodeInstall
   cd ~/Documents/vim
 
-  (git clone https://github.com/vim/vim.git;
+  (git clone https://github.com/vim/vim.git &&
   cd vim/src;
   make && sudo make install)
 

@@ -5,8 +5,8 @@ then
   mkdir -p ~/.vim/plugged
   mkdir -p ~/.vim/colors
   cp colours/* ~/.vim/colors/
-  cp ./vimrc ~/.vimrc
-  cp ./coc-settings.json ~/.vim/coc-settings.json
+  cp ./config/vimrc ~/.vimrc
+  cp ./config/coc-settings.json ~/.vim/coc-settings.json
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   vim +PlugInstall +PlugClean! +qall
