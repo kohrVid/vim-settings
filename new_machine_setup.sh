@@ -47,7 +47,7 @@ clamScan() {
 }
 
 gitConfig() {
-  if [ -z $1 -o -z $2 ]
+  if [ -z "$1" -o -z "$2" ]
   then
     echo "Skipping git config due to missing params"
   else
