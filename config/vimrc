@@ -33,6 +33,7 @@ Plug 'udalov/kotlin-vim'
 Plug 'tpope/vim-rhubarb'
 Plug 'hashivim/vim-terraform'
 Plug 'natebosch/vim-lsc'
+Plug 'chr4/nginx.vim'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#build()}}
 endif
 unlet! g:plug_url_format
