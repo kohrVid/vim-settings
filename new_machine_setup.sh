@@ -83,6 +83,12 @@ vimConfig() {
 }
 
 tmuxInstall() {
+  if [[ -z $(which yacc) ]]
+    then
+      sudo apt-get install bison
+      alias yacc="bison"
+  fi
+
   cd ~/Documents/Programmes/
   sudo apt-get install gcc pkg-config autogen automake libevent-dev libncurses5-dev
   git clone https://github.com/tmux/tmux.git
