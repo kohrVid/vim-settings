@@ -1,9 +1,6 @@
 #!/bin/bash
 
 main() {
-  sudo apt-get update
-  sudo apt-get install git clamav ssh make rsync gnupg2
-  mkdir -p ~/Documents/go ~/Documents/Programmes ~/Documents/vim
   echo "Please enter your full name..."
   read GIT_NAME
   echo "Please enter your Github email address..."
@@ -19,11 +16,15 @@ main() {
   echo "Would you like to install docker? (Y/N)"
   read INSTALL_DOCKER
 
+  sudo apt-get update
+  sudo apt-get install software-properties-common systemd-services git clamav ssh make rsync gnupg2
+  mkdir -p ~/Documents/go ~/Documents/Programmes ~/Documents/vim
+
   clamScan "$RUN_SCAN"
   gitConfig "$GIT_NAME" "$GIT_EMAIL"
   goInstall "1.12.1"
   vimConfig
-  tmuxInstall
+  tmuxInstall "$IS_A_VM"
   terraformInstall
   rubyInstall "$INSTALL_RUBY"
   scalaInstall "$INSTALL_SCALA"
@@ -99,7 +100,13 @@ tmuxInstall() {
   sh autogen.sh
   ./configure && make
   sudo ln -s ~/Documents/Programmes/tmux/tmux /usr/bin/tmux
-  cp ~/Documents/vim/vim-settings/config/tmux.conf ~/.tmux.conf
+
+  if [ `echo "$1" | awk '{print toupper($0)}'` = "Y" ]
+  then
+    cp ~/Documents/vim/vim-settings/config/tmux_vm.conf ~/.tmux.conf
+  else
+    cp ~/Documents/vim/vim-settings/config/tmux.conf ~/.tmux.conf
+  fi
 }
 
 rubyInstall() {
