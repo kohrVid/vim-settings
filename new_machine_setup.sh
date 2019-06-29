@@ -18,7 +18,7 @@ main() {
 
   sudo apt-get update
   sudo apt-get install software-properties-common systemd-services git clamav ssh make rsync gnupg2
-  mkdir -p ~/Documents/go ~/Documents/Programmes ~/Documents/vim
+  mkdir -p $HOME/Documents/go $HOME/Documents/Programmes $HOME/Documents/vim
 
   clamScan "$RUN_SCAN"
   gitConfig "$GIT_NAME" "$GIT_EMAIL"
@@ -55,23 +55,23 @@ gitConfig() {
     git config --global --replace-all user.name $1
     git config --global --replace-all user.email $2
     git config --system core.editor vim
-    mv config/gitignore_global ~/.gitignore_global
-    git config --global core.excludesfile ~/.gitignore_global
+    mv config/gitignore_global $HOME/.gitignore_global
+    git config --global core.excludesfile $HOME/.gitignore_global
   fi
 }
 
 goInstall() {
-  cd ~/Documents/Programmes/
+  cd $HOME/Documents/Programmes/
   curl -O "https://dl.google.com/go/go$1.linux-amd64.tar.gz"
   sudo tar -C /usr/local -xzf "go$1.linux-amd64.tar.gz"
-  echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.bashrc
-  echo "export GOPATH=$HOME/Documents/go" >> ~/.bashrc
-  source ~/.bashrc
+  echo "export PATH=\$PATH:/usr/local/go/bin" >> $HOME/.bashrc
+  echo "export GOPATH=$HOME/Documents/go" >> $HOME/.bashrc
+  source $HOME/.bashrc
 }
 
 vimConfig() {
   nodeInstall
-  cd ~/Documents/vim
+  cd $HOME/Documents/vim
 
   (git clone https://github.com/vim/vim.git &&
   cd vim/src;
@@ -91,7 +91,7 @@ tmuxInstall() {
       alias yacc="bison"
   fi
 
-  cd ~/Documents/Programmes/
+  cd $HOME/Documents/Programmes/
   sudo apt-get install gcc pkg-config autogen automake libevent-dev libncurses5-dev
   git clone https://github.com/tmux/tmux.git
   cd tmux
@@ -99,24 +99,24 @@ tmuxInstall() {
   git remote add origin git@github.com:tmux/tmux.git
   sh autogen.sh
   ./configure && make
-  sudo ln -s ~/Documents/Programmes/tmux/tmux /usr/bin/tmux
+  sudo ln -s $HOME/Documents/Programmes/tmux/tmux /usr/bin/tmux
 
   if [ `echo "$1" | awk '{print toupper($0)}'` = "Y" ]
   then
-    cp ~/Documents/vim/vim-settings/config/tmux_vm.conf ~/.tmux.conf
+    cp $HOME/Documents/vim/vim-settings/config/tmux_vm.conf $HOME/.tmux.conf
   else
-    cp ~/Documents/vim/vim-settings/config/tmux.conf ~/.tmux.conf
+    cp $HOME/Documents/vim/vim-settings/config/tmux.conf $HOME/.tmux.conf
   fi
 }
 
 rubyInstall() {
   if [ `echo "$1" | awk '{print toupper($0)}'` = "Y" ]
   then
-    cd ~/Documents/Programmes/
+    cd $HOME/Documents/Programmes/
     echo "Installing ruby...."
     gpg --keyserver hkp://pool.sks-keyservers.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
     \curl -sSL https://get.rvm.io | bash -s stable --rails
-    source ~/.bashrc
+    source $HOME/.bashrc
     rvm pkg install openssl
     gem install solargraph
     rm -rf $HOME/.yarn
@@ -129,14 +129,14 @@ rubyInstall() {
 scalaInstall() {
   if [ `echo "$1" | awk '{print toupper($0)}'` = "Y" ]
   then
-    cd ~/Documents/Programmes/
+    cd $HOME/Documents/Programmes/
     echo "Installing scala...."
     sudo apt-get install default-jre default-jdk
     curl -O https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.gz
     sudo tar xvf openjdk-11.0.1_linux-x64_bin.tar.gz --directory /usr/lib/jvm/
     /usr/lib/jvm/jdk-11.0.1/bin/java -version
     java_home="export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64\nexport PATH=\$JAVA_HOME/bin/:\$PATH"
-    echo $java_home >> ~/.bashrc
+    echo $java_home >> $HOME/.bashrc
     sudo echo $java_home >> /etc/environment
     sudo apt-get install scala
     echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
@@ -163,19 +163,19 @@ vimMetals() {
     -r sonatype:snapshots \
     -o /usr/local/bin/metals-vim -f
 
-  mkdir -p ~/.cache/metals
-  touch ~/.cache/metals/bsp.trace.json
+  mkdir -p $HOME/.cache/metals
+  touch $HOME/.cache/metals/bsp.trace.json
 }
 
 nodeInstall() {
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
-  source ~/.nvm/nvm.sh
+  source $HOME/.nvm/nvm.sh
   nvm install --lts
   nvm use --lts
 }
 
 terraformInstall() {
-  cd ~/Documents/Programmes
+  cd $HOME/Documents/Programmes
   curl -O https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
   unzip terraform_0.11.13_linux_amd64.zip
   sudo ln -s $HOME/Documents/Programmes/terraform /usr/bin/terraform
@@ -210,16 +210,16 @@ dockerInstall() {
 }
 
 postGNOMEInstall() {
-  cd ~/Documents/Programmes
+  cd $HOME/Documents/Programmes
   sudo apt-get install conky
-  cp ~/Documents/vim/vim-settings/config/conkyrc ~/.conkyrc
+  cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.conkyrc
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-  cp ~/Documents/vim/vim-settings/config/zshrc ~/.zshrc
+  cp $HOME/Documents/vim/vim-settings/config/zshrc $HOME/.zshrc
   guiAppInstall
 }
 
 guiAppInstall() {
-  cd ~/Documents/Programmes
+  cd $HOME/Documents/Programmes
   curl -O http://www.giuspen.com/software/cherrytree_0.38.8-0_all.deb
   sudo dpkg -i cherrytree_0.38.8-0_all.deb
   anacondaInstall
@@ -229,7 +229,7 @@ guiAppInstall() {
 }
 
 anacondaInstall() {
-  cd ~/Documents/Programmes
+  cd $HOME/Documents/Programmes
   curl -O https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
   sudo chmod +x Anaconda3-2018.12-Linux-x86_64.sh
   ./Anaconda3-2018.12-Linux-x86_64.sh
