@@ -57,6 +57,8 @@ gitConfig() {
     git config --system core.editor vim
     mv config/gitignore_global $HOME/.gitignore_global
     git config --global core.excludesfile $HOME/.gitignore_global
+    sudo apt-get install kdiff3
+    git config --global --add merge.tool kdiff3
   fi
 }
 
