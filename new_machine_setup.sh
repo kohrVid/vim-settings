@@ -242,6 +242,7 @@ postGNOMEInstall() {
   cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.conkyrc
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   cp $HOME/Documents/vim/vim-settings/config/zshrc $HOME/.zshrc
+  cp $HOME/Documents/vim/vim-settings/config/zshenv $HOME/.zshenv
   guiAppInstall
 }
 
