@@ -32,7 +32,8 @@ if [[ -z $(which pt) ]]
         if [[ -n $GOPATH ]]
         then
           go get -u github.com/monochromegane/the_platinum_searcher/...
-          env GOOS=linux GOARCH=amd64 go build -v github.com/monochromegane/the_platinum_searcher/...
+          go install -v github.com/monochromegane/the_platinum_searcher/...
+
           sudo ln -s $GOPATH/bin/pt /usr/bin/pt
 
           # The following needs to go elsewhere
