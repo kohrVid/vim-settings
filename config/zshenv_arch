@@ -1,0 +1,44 @@
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias la='ls -A'
+alias l='ls -CF'
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias dir='dir --color=auto'
+  alias vdir='vdir --color=auto'
+
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+fi
+
+## Custom aliases ##
+alias pingg="ping google.com"
+alias bloodynic="sudo systemctl stop NetworkManager; sudo systemctl restart networking; sudo systemctl start NetworkManager; sudo ifconfig enp4s0 up"
+alias rvms="source /usr/local/rvm/scripts/rvm"
+#alias cpwd="pwd | pbcopy"
+#alias lua="/home/jessica/Documents/Programmes/lua/lua-5.3.2/src/lua"
+alias express="~/.nvm/versions/node/v5.6.0/lib/node_modules/express-generator/bin/express"
+alias gpm="git pull origin master"
+alias gps="git pull origin staging"
+alias gph="git push origin HEAD"
+alias shutup_printer="sudo systemctl stop cups-browsed"
+alias hello_printer="sudo systemctl start cups-browsed"
+alias bluer="sudo systemctl restart bluetooth"
+alias caliope="echo 'connect 00:16:94:1A:C9:EC' | bluetoothctl; pacmd set-default-sink 3"
+alias clipb0="echo -n | xclip -selection clipboard"
+alias pulseffs="gio trash .config/pulse"
+alias bloodyVpn=sudo modprobe -r r8169 && sleep 10 && sudo modprobe r8169
+
+function kotlinrun {
+  kotlinc $(find . -name "*.kt") -include-runtime -d $1.jar
+  java -jar $1.jar
+}
+
+# Guake settings
+#alias guakertn="xdotool search --name 'Guake!' windowreparent `xwininfo -name 'Guake!' -int -tree | grep -o -P '(?<=Root\ window\ id\:).*(?=\(the)'`"
