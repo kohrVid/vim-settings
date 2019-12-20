@@ -226,7 +226,7 @@ haskellInstall() {
 
 postGNOMEInstall() {
   cd $HOME/Documents/Programmes
-  sudo pacman -S --noconfirm dconky
+  sudo pacman -S --noconfirm conky
   cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.conkyrc
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   cp $HOME/Documents/vim/vim-settings/config/zshrc $HOME/.zshrc
@@ -255,7 +255,11 @@ anacondaInstall() {
 }
 
 spotifyInstall() {
-  echo "skip spotify installation as not implemented"
+  cd $HOME/Documents/Programmes
+  git clone https://aur.archlinux.org/snapd.git
+  cd snapd
+  makepkg -s --noconfirm
+  sudo snap install spotify
 }
 
 whatIsMyDistro() {
