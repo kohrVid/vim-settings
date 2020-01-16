@@ -46,6 +46,7 @@ clamScan() {
   else
     echo "Running scan...."
     sudo mkdir /clam01
+    sudo freshclam
     sudo clamscan --recursive=yes / --move=/clam01 -l /clam01.txt
   fi
 }
