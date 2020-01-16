@@ -18,10 +18,11 @@ main() {
   echo "Would you like to install haskell? (Y/N)"
   read INSTALL_HASKELL
 
-  sudo pacman -Syyu
-  sudo pacman -S --noconfirm clamav make yay base-devel
 
   mkdir -p $HOME/Documents/go $HOME/Documents/Programmes $HOME/Documents/vim
+
+  sudo pacman -Syyu --noconfirm
+  sudo pacman -S --noconfirm clamav make yay base-devel xclip
 
   git clone https://github.com/helixarch/debtap.git
   sudo ln -s $HOME/Documents/Programmes/debtap/debtap /usr/bin/debtap
@@ -41,6 +42,8 @@ main() {
   then
     postGNOMEInstall
   fi
+
+  echo "Setup complete"
 }
 
 clamScan() {
@@ -50,6 +53,7 @@ clamScan() {
   else
     echo "Running scan...."
     sudo mkdir /clam01
+    sudo freshclam
     sudo clamscan --recursive=yes / --move=/clam01 -l /clam01.txt
   fi
 }
@@ -81,14 +85,8 @@ goInstall() {
 vimConfig() {
   nodeInstall
   cd $HOME/Documents/vim
+  sudo pacman -S --noconfirm gvim
 
-  (git clone https://github.com/vim/vim.git &&
-  cd vim/src;
-  ./configure --enable-luainterp \
-            --enable-perlinterp \
-            --enable-pythoninterp \
-            --enable-rubyinterp
-  make && sudo make install)
 
   (git clone https://github.com/kohrVid/vim-settings.git;
   cd vim-settings;
@@ -105,7 +103,7 @@ tmuxInstall() {
   fi
 
   cd $HOME/Documents/Programmes/
-  sudo pacman -S --noconfirm gcc pkg-config autogen automake libevent-dev libncurses5-dev
+  sudo pacman -S --noconfirm gcc pkg-config autogen automake
   git clone https://github.com/tmux/tmux.git
   cd tmux
   git remote remove origin
@@ -198,10 +196,9 @@ terraformInstall() {
 dockerInstall() {
   if [ `echo "$1" | awk '{print toupper($0)}'` = "Y" ]
   then
-    sudo pacman -Rs docker docker-engine docker.io containerd runc
-    sudo pacman -Syyu
-
-    sudo pacman -S --noconfirm docker-ce docker-ce-cli containerd.io
+    sudo pacman -Syyu --noconfirm
+    sudo pacman -S --noconfirm docker
+    sudo systemctl start docker # Note, any VPNs must be switched off first
   else
     echo "Skipping docker installation"
   fi
@@ -236,12 +233,12 @@ postGNOMEInstall() {
 
 guiAppInstall() {
   cd $HOME/Documents/Programmes
-  yay cherrytree
+  echo 1 | yay --noconfirm --answerdiff=None cherrytree
   anacondaInstall
   sudo pacman -S --noconfirm community/slack-online
   spotifyInstall
   pacman -S python2
-  yay gnome-python-desktop
+  #echo 1 | yay --noconfirm --answerdiff=None gnome-python-desktop
 }
 
 anacondaInstall() {
