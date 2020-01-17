@@ -63,8 +63,8 @@ gitConfig() {
   then
     echo "Skipping git config due to missing params"
   else
-    git config --global --replace-all user.name $1
-    git config --global --replace-all user.email $2
+    git config --global --replace-all user.name "$1"
+    git config --global --replace-all user.email "$2"
     sudo git config --system core.editor vim
     mv config/gitignore_global $HOME/.gitignore_global
     git config --global core.excludesfile $HOME/.gitignore_global
