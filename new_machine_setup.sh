@@ -71,8 +71,11 @@ goInstall() {
   curl -O "https://dl.google.com/go/go$1.linux-amd64.tar.gz"
   sudo tar -C /usr/local -xzf "go$1.linux-amd64.tar.gz"
   echo "export PATH=\$PATH:/usr/local/go/bin" >> $HOME/.bashrc
+  echo "export GOROOT=/usr/local/go" >> $HOME/.bashrc
   echo "export GOPATH=$HOME/Documents/go" >> $HOME/.bashrc
+  echo "export GOBIN=$GOROOT/bin" >> $HOME/.bashrc
   source $HOME/.bashrc
+  sudo chown $USER:$USER $GOBIN
 }
 
 vimConfig() {
@@ -92,6 +95,8 @@ vimConfig() {
   git remote remove origin;
   git remote add origin git@github.com:kohrVid/vim-settings.git;
   ./bundle.sh)
+  # vim-gtk and xclip are needed for clipboard support from vim and tmux
+  sudo aptitude install vim-gtk xclip
 }
 
 tmuxInstall() {

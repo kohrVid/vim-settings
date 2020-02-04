@@ -80,8 +80,11 @@ goInstall() {
   curl -O "https://dl.google.com/go/go$1.linux-amd64.tar.gz"
   sudo -S <<< "$2" tar -C /usr/local -xzf "go$1.linux-amd64.tar.gz"
   echo "export PATH=\$PATH:/usr/local/go/bin" >> $HOME/.bashrc
+  echo "export GOROOT=/usr/local/go" >> $HOME/.bashrc
   echo "export GOPATH=$HOME/Documents/go" >> $HOME/.bashrc
+  echo "export GOBIN=$GOROOT/bin" >> $HOME/.bashrc
   source $HOME/.bashrc
+  sudo -S <<< "$2" chown $USER:$USER $GOBIN
 }
 
 vimConfig() {

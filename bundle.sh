@@ -31,14 +31,11 @@ if [[ -z $(which pt) ]]
       'Linux')
         if [[ -n $GOPATH ]]
         then
+          vim +GoInstallBinaries +qall
           GO111MODULE=on go get -u github.com/monochromegane/the_platinum_searcher/...
           GO111MODULE=on go install -v github.com/monochromegane/the_platinum_searcher/...
 
           sudo ln -s $GOPATH/bin/pt /usr/bin/pt
-
-          # The following needs to go elsewhere
-          # vim-gtk and xclip are needed for clipboard support from vim and tmux
-          sudo aptitude install vim-gtk xclip
         else
           echo "Please set and export your GOPATH before trying again"
         fi
