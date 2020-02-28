@@ -255,6 +255,7 @@ anacondaInstall() {
   echo "y" | conda install -c anaconda-cluster scala
   echo "y" | conda install -c r r-irkernel rpy2
   echo "y" | conda install jupyter
+  echo "y" | conda install -c anaconda psycopg2
 }
 
 spotifyInstall() {
