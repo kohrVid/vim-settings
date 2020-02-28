@@ -1,6 +1,8 @@
 #!/bin/bash
 
 main() {
+  echo "[sudo] password for $USER: "
+  read -s PASSWORD
   echo "Please enter your full name..."
   read GIT_NAME
   echo "Please enter your Github email address..."
@@ -18,25 +20,32 @@ main() {
   echo "Would you like to install haskell? (Y/N)"
   read INSTALL_HASKELL
 
-  sudo apt-get update
-  sudo apt-get install software-properties-common systemd-services git clamav ssh make rsync gnupg2
+
   mkdir -p $HOME/Documents/go $HOME/Documents/Programmes $HOME/Documents/vim
 
-  clamScan "$RUN_SCAN"
-  gitConfig "$GIT_NAME" "$GIT_EMAIL"
-  goInstall "1.12.1"
-  vimConfig
-  tmuxInstall "$IS_A_VM"
-  terraformInstall
+  sudo -S <<< "$PASSWORD" pacman -Syyu --noconfirm
+  sudo -S <<< "$PASSWORD" pacman -S --noconfirm clamav make yay base-devel xclip
+
+  git clone https://github.com/helixarch/debtap.git
+  sudo -S <<< "$PASSWORD" ln -s $HOME/Documents/Programmes/debtap/debtap /usr/bin/debtap
+
+  clamScan "$RUN_SCAN" "$PASSWORD"
+  gitConfig "$GIT_NAME" "$GIT_EMAIL" "$PASSWORD"
+  goInstall "1.12.1" "$PASSWORD"
+  vimConfig "$PASSWORD"
+  tmuxInstall "$IS_A_VM" "$PASSWORD"
+  terraformInstall "$PASSWORD"
   rubyInstall "$INSTALL_RUBY"
-  scalaInstall "$INSTALL_SCALA"
-  dockerInstall "$INSTALL_DOCKER"
-  haskellInstall "$INSTALL_HASKELL"
+  scalaInstall "$INSTALL_SCALA" "$PASSWORD"
+  dockerInstall "$INSTALL_DOCKER" "$PASSWORD"
+  haskellInstall "$INSTALL_HASKELL" "$PASSWORD"
 
   if [ `echo $IS_A_VM | awk '{print toupper($0)}'` = "N" ]
   then
-    postGNOMEInstall
+    postGNOMEInstall "$PASSWORD"
   fi
+
+  echo "Setup complete"
 }
 
 clamScan() {
@@ -45,9 +54,9 @@ clamScan() {
     echo "Skipping scan"
   else
     echo "Running scan...."
-    sudo mkdir /clam01
-    sudo freshclam
-    sudo clamscan --recursive=yes / --move=/clam01 -l /clam01.txt
+    sudo -S <<< "$2" mkdir /clam01
+    sudo -S <<< "$2" freshclam
+    sudo -S <<< "$2" clamscan --recursive=yes / --move=/clam01 -l /clam01.txt
   fi
 }
 
@@ -58,10 +67,10 @@ gitConfig() {
   else
     git config --global --replace-all user.name "$1"
     git config --global --replace-all user.email "$2"
-    git config --system core.editor vim
+    sudo -S <<< "$3" git config --system core.editor vim
     mv config/gitignore_global $HOME/.gitignore_global
     git config --global core.excludesfile $HOME/.gitignore_global
-    sudo apt-get install kdiff3
+    sudo -S <<< "$3" apt-get install kdiff3
     git config --global --add merge.tool kdiff3
   fi
 }
@@ -69,52 +78,44 @@ gitConfig() {
 goInstall() {
   cd $HOME/Documents/Programmes/
   curl -O "https://dl.google.com/go/go$1.linux-amd64.tar.gz"
-  sudo tar -C /usr/local -xzf "go$1.linux-amd64.tar.gz"
+  sudo -S <<< "$2" tar -C /usr/local -xzf "go$1.linux-amd64.tar.gz"
   echo "export PATH=\$PATH:/usr/local/go/bin" >> $HOME/.bashrc
   echo "export GOROOT=/usr/local/go" >> $HOME/.bashrc
   echo "export GOPATH=$HOME/Documents/go" >> $HOME/.bashrc
   echo "export GOBIN=$GOROOT/bin" >> $HOME/.bashrc
   source $HOME/.bashrc
-  sudo chown $USER:$USER $GOBIN
+  sudo -S <<< "$2" chown $USER:$USER $GOBIN
 }
 
 vimConfig() {
   nodeInstall
   cd $HOME/Documents/vim
+  sudo -S <<< "$1" pacman -S --noconfirm gvim
 
-  (git clone https://github.com/vim/vim.git &&
-  cd vim/src;
-  ./configure --enable-luainterp \
-            --enable-perlinterp \
-            --enable-pythoninterp \
-            --enable-rubyinterp
-  make && sudo make install)
 
   (git clone https://github.com/kohrVid/vim-settings.git;
   cd vim-settings;
   git remote remove origin;
   git remote add origin git@github.com:kohrVid/vim-settings.git;
   ./bundle.sh)
-  # vim-gtk and xclip are needed for clipboard support from vim and tmux
-  sudo aptitude install vim-gtk xclip
 }
 
 tmuxInstall() {
   if [[ -z $(which yacc) ]]
     then
-      sudo apt-get install bison
+      sudo -S <<< "$2" pacman -S --noconfirm bison
       alias yacc="bison"
   fi
 
   cd $HOME/Documents/Programmes/
-  sudo apt-get install gcc pkg-config autogen automake libevent-dev libncurses5-dev
+  sudo -S <<< "$2" pacman -S --noconfirm gcc pkg-config autogen automake
   git clone https://github.com/tmux/tmux.git
   cd tmux
   git remote remove origin
   git remote add origin git@github.com:tmux/tmux.git
   sh autogen.sh
   ./configure && make
-  sudo ln -s $HOME/Documents/Programmes/tmux/tmux /usr/bin/tmux
+  sudo -S <<< "$2" ln -s $HOME/Documents/Programmes/tmux/tmux /usr/bin/tmux
 
   if [ `echo "$1" | awk '{print toupper($0)}'` = "Y" ]
   then
@@ -146,19 +147,19 @@ scalaInstall() {
   then
     cd $HOME/Documents/Programmes/
     echo "Installing scala...."
-    sudo apt-get install default-jre default-jdk
+    sudo -S <<< "$2" pacman -S --noconfirm default-jre default-jdk
     curl -O https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.gz
-    sudo tar xvf openjdk-11.0.1_linux-x64_bin.tar.gz --directory /usr/lib/jvm/
+    sudo -S <<< "$2" tar xvf openjdk-11.0.1_linux-x64_bin.tar.gz --directory /usr/lib/jvm/
     /usr/lib/jvm/jdk-11.0.1/bin/java -version
     java_home="export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64\nexport PATH=\$JAVA_HOME/bin/:\$PATH"
     echo $java_home >> $HOME/.bashrc
-    sudo echo $java_home >> /etc/environment
-    sudo apt-get install scala
+    sudo -S <<< "$2" echo $java_home >> /etc/environment
+    sudo -S <<< "$2" pacman -S --noconfirm scala
     echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
-    sudo apt-get update
-    sudo apt-get install sbt
-    vimMetals
+    sudo -S <<< "$2" apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+    sudo -S <<< "$2" pacman -Syyu --noconfirm
+    sudo -S <<< "$2" pacman -S --noconfirm  sbt
+    vimMetals "$2"
   else
     echo "Skipping scala installation"
   fi
@@ -166,10 +167,10 @@ scalaInstall() {
 
 vimMetals() {
   cd /usr/bin
-  sudo curl -L -o coursier https://git.io/coursier
-  sudo chmod +x coursier
+  sudo -S <<< "$1" curl -L -o coursier https://git.io/coursier
+  sudo -S <<< "$1" chmod +x coursier
 
-  sudo coursier bootstrap \
+  sudo -S <<< "$1" coursier bootstrap \
     --java-opt -Xss4m \
     --java-opt -Xms100m \
     --java-opt -Dmetals.client=coc.nvim \
@@ -193,32 +194,16 @@ terraformInstall() {
   cd $HOME/Documents/Programmes
   curl -O https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
   unzip terraform_0.11.13_linux_amd64.zip
-  sudo ln -s $HOME/Documents/Programmes/terraform /usr/bin/terraform
+  sudo -S <<< "$1" ln -s $HOME/Documents/Programmes/terraform /usr/bin/terraform
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/wata727/tflint/v0.7.5/install_linux.sh)"
 }
 
 dockerInstall() {
   if [ `echo "$1" | awk '{print toupper($0)}'` = "Y" ]
   then
-    sudo apt-get -y remove docker docker-engine docker.io containerd runc
-    sudo apt-get -y update
-
-    sudo apt-get -y install \
-      apt-transport-https \
-      ca-certificates \
-      curl \
-      gnupg-agent \
-      software-properties-common
-
-    curl -fsSL https://download.docker.com/linux/`whatIsMyDistro`/gpg | sudo apt-key add -
-
-    sudo add-apt-repository \
-     "deb [arch=amd64] https://download.docker.com/linux/`whatIsMyDistro` \
-     $(lsb_release -cs) \
-     stable"
-
-    sudo apt-get -y update
-    sudo apt-get -y install docker-ce docker-ce-cli containerd.io
+    sudo -S <<< "$2" pacman -Syyu --noconfirm
+    sudo -S <<< "$2" pacman -S --noconfirm docker
+    sudo -S <<< "$2" systemctl start docker # Note, any VPNs must be switched off first
   else
     echo "Skipping docker installation"
   fi
@@ -227,8 +212,7 @@ dockerInstall() {
 haskellInstall() {
   if [ `echo "$1" | awk '{print toupper($0)}'` = "Y" ]
   then
-    sudo apt install libicu-dev libtinfo-dev libgmp-dev
-    sudo apt-install ghc
+    sudo -S <<< "$2" pacman -S --noconfirm ghc
     cd Documents/Programmes
     curl -sSL https://get.haskellstack.org/ | sh
     git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules
@@ -236,7 +220,7 @@ haskellInstall() {
     stack ./install.hs hie-8.4.4
     stack ./install.hs build-doc
     stack ./install.hs cabal-ghcs
-    sudo ln -s $HOME/.local/bin/hie-wrapper /usr/bin/hie-wrapper
+    sudo -S <<< "$2" ln -s $HOME/.local/bin/hie-wrapper /usr/bin/hie-wrapper
   else
     echo "Skipping haskell installation"
   fi
@@ -244,63 +228,40 @@ haskellInstall() {
 
 postGNOMEInstall() {
   cd $HOME/Documents/Programmes
-  sudo apt-get install conky
+  sudo -S <<< "$1" pacman -S --noconfirm conky
   cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.conkyrc
-  zshInstall
-  guiAppInstall
-}
-
-zshInstall() {
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   cp $HOME/Documents/vim/vim-settings/config/zshrc $HOME/.zshrc
-  cp $HOME/Documents/vim/vim-settings/config/zshenv $HOME/.zshenv
-  curl -O https://github.com/eosrei/twemoji-color-font/releases/download/v12.0.1/TwitterColorEmoji-SVGinOT-Linux-12.0.1.tar.gz
-  sudo apt-get install ttf-bitstream-vera
-  tar zxf TwitterColorEmoji-SVGinOT-Linux-12.0.1.tar.gz
-  (cd TwitterColorEmoji-SVGinOT-Linux-12.0.1; ./install.sh)
+  cp $HOME/Documents/vim/vim-settings/config/zshenv_arch $HOME/.zshenv
+  guiAppInstall $1
 }
 
 guiAppInstall() {
   cd $HOME/Documents/Programmes
-  curl -O http://www.giuspen.com/software/cherrytree_0.38.8-0_all.deb
-  sudo dpkg -i cherrytree_0.38.8-0_all.deb
-  anacondaInstall
-  curl -O https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
-  sudo dpkg -i slack-desktop-3.3.8-amd64.deb
-  spotifyInstall
+  echo 1 | yay --noconfirm --answerdiff=None cherrytree
+  anacondaInstall "$1"
+  sudo -S <<< "$1" pacman -S --noconfirm community/slack-online
+  spotifyInstall "$1"
+  pacman -S python2
+  #echo 1 | yay --noconfirm --answerdiff=None gnome-python-desktop
 }
 
 anacondaInstall() {
   cd $HOME/Documents/Programmes
   curl -O https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
-  sudo chmod +x Anaconda3-2018.12-Linux-x86_64.sh
+  sudo -S <<< "$1" chmod +x Anaconda3-2018.12-Linux-x86_64.sh
   ./Anaconda3-2018.12-Linux-x86_64.sh
-  conda install -c anaconda-cluster scala
-  conda install -c r r-irkernel rpy2
-  conda install jupyter
+  source $HOME/.zshrc
+  echo "y" | conda install -c anaconda-cluster scala
+  echo "y" | conda install -c r r-irkernel rpy2
+  echo "y" | conda install jupyter
 }
 
 spotifyInstall() {
-  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
-  echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
-  sudo apt-get update
-  sudo apt-get install spotify-client
-}
-
-whatIsMyDistro() {
-  if [[ "`hostnamectl`" =~ 'Ubuntu' ]]
-  then
-    echo "ubuntu"
-  elif [[ "`hostnamectl`" =~ 'Debian' ]]
-  then
-    echo "debian"
-  #elif [[ "`hostnamectl`" =~ 'Fedora' ]]
-  #then
-    #echo "fedora"
-  else
-    echo "Unknown distro" 1>&2
-    exit 1
-  fi
+  cd $HOME/Documents/Programmes
+  git clone https://aur.archlinux.org/spotify.git
+  cd spotify
+  echo "$1" | makepkg -s --noconfirm
 }
 
 main

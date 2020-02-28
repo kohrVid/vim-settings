@@ -9,11 +9,11 @@ then
   cp ./config/coc-settings.json ~/.vim/coc-settings.json
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  vim +PlugInstall +PlugClean! +qall
 else
   echo "Pathogen file present. Please manually add vimrc and colours scheme where needed."
 fi
 
+vim +PlugInstall +PlugClean! +qall
 (vim -u NONE -c "helptags vim-rhubarb/doc" -c q;)
 
 if [ ! -d ~/.vim/ftdetect ]
@@ -31,13 +31,11 @@ if [[ -z $(which pt) ]]
       'Linux')
         if [[ -n $GOPATH ]]
         then
-          go get -u github.com/monochromegane/the_platinum_searcher/...
-          env GOOS=linux GOARCH=amd64 go build -v github.com/monochromegane/the_platinum_searcher/...
-          sudo ln -s $GOPATH/bin/pt /usr/bin/pt
+          vim +GoInstallBinaries +qall
+          GO111MODULE=on go get -u github.com/monochromegane/the_platinum_searcher/...
+          GO111MODULE=on go install -v github.com/monochromegane/the_platinum_searcher/...
 
-          # The following needs to go elsewhere
-          # vim-gtk and xclip are needed for clipboard support from vim and tmux
-          sudo aptitude install vim-gtk xclip
+          sudo ln -s $GOPATH/bin/pt /usr/bin/pt
         else
           echo "Please set and export your GOPATH before trying again"
         fi
