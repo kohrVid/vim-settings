@@ -248,13 +248,15 @@ guiAppInstall() {
 
 anacondaInstall() {
   cd $HOME/Documents/Programmes
-  curl -O https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
-  sudo -S <<< "$1" chmod +x Anaconda3-2018.12-Linux-x86_64.sh
-  ./Anaconda3-2018.12-Linux-x86_64.sh
+  sudo -S <<< "$1" pacman -Sy libxau libxi libxss libxtst libxcursor libxcomposite libxdamage libxfixes libxrandr libxrender mesa-libgl  alsa-lib libglvnd
+  curl -O https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
+  sudo -S <<< "$1" chmod +x ./Anaconda3-2019.10-Linux-x86_64.sh
+  ./Anaconda3-2019.10-Linux-x86_64.sh
   source $HOME/.zshrc
   echo "y" | conda install -c anaconda-cluster scala
   echo "y" | conda install -c r r-irkernel rpy2
   echo "y" | conda install jupyter
+  mv $HOME/anaconda3/compiler_compat/ld $HOME/anaconda3/compiler_compat/ldOld
   echo "y" | conda install -c anaconda psycopg2
 }
 

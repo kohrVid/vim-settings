@@ -12,5 +12,6 @@
       "filetypes": ["hs", "lhs", "haskell"],
       "initializationOptions": {}
     }
-  }
+  },
+  "python.jediEnabled": true
 }
