@@ -143,7 +143,8 @@ nmap <C-M> Yp<C-A>
 nmap <C-N> Yp<C-X>
 
 "Remove trailing whitespace
-nmap <silent><Leader>rs :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+com! Rs :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl
+nmap <silent><Leader>rs :Rs<Cr>
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 
@@ -153,6 +154,15 @@ vmap <CR> <CR>
 
 "Pretty-print JSON
 nmap <silent><Leader>json :%!python -m json.tool
+
+"Pretty-print XML
+function FormatXML()
+  :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
+  :%s/\t/\ \ /g
+  :g/^\s*$/d
+  :Rs
+endfunction
+nmap <silent><Leader>xml :call FormatXML()
 
 au BufNewFile,BufRead *.handlebars set filetype=html
 au BufNewFile,BufRead *.md set filetype=markdown
