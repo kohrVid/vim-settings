@@ -68,7 +68,7 @@ gitConfig() {
     git config --global --replace-all user.name "$1"
     git config --global --replace-all user.email "$2"
     sudo -S <<< "$3" git config --system core.editor vim
-    mv config/gitignore_global $HOME/.gitignore_global
+    cp $HOME/Documents/vim/vim-settings/config/gitignore_global $HOME/.gitignore_global
     git config --global core.excludesfile $HOME/.gitignore_global
     sudo -S <<< "$3" apt-get install kdiff3
     git config --global --add merge.tool kdiff3
