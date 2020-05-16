@@ -34,7 +34,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'hashivim/vim-terraform'
 Plug 'natebosch/vim-lsc'
 Plug 'chr4/nginx.vim'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#build()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 unlet! g:plug_url_format
 call plug#end()
@@ -76,6 +76,8 @@ let g:user_emmet_settings = { "haml" : { "extends" : "html" }, "erb" : { "extend
 "in vagrant, use:
 "let g:NERDTreeDirArrowExpandable = '►' "'>>'
 "let g:NERDTreeDirArrowCollapsible = '▼'
+
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
 if executable('pt')
   " Use ag over grep
