@@ -31,6 +31,7 @@ main() {
 
   mkdir -p $HOME/Documents/go $HOME/Documents/Programmes $HOME/Documents/vim
 
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   brew install clamav
   sudo chmod a+rw /usr/local/Cellar/clamav/0.102.2/share/clamav/
   cp /usr/local/etc/clamav/freshclam.conf.sample /usr/local/etc/clamav/freshclam.conf
@@ -213,6 +214,7 @@ postGNOMEInstall() {
 guiAppInstall() {
   cd $HOME/Documents/Programmes
   anacondaInstall "$1"
+  cherryTreeInstall "$1"
 }
 
 anacondaInstall() {
@@ -226,6 +228,21 @@ anacondaInstall() {
   echo "y" | conda install jupyter
   #mv $HOME/anaconda3/compiler_compat/ld $HOME/anaconda3/compiler_compat/ldOld
   echo "y" | conda install -c anaconda psycopg2
+}
+
+cherryTreeInstall() {
+  cd $HOME/Documents/Programmes
+  brew install python3
+  pip3 install lxml
+  brew install cmake pkg-config gtksourceviewmm3 gnome-icon-theme gspell libxml++ cpputest
+  git clone https://github.com/giuspen/cherrytree.git
+  mkdir cherrytree/build
+  cd cherrytree/build
+  cmake ../future
+  make -j4
+  sudo -S <<< "$PASSWORD" ln -s $HOME/Documents/Programmes/cherrytree/build/cherrytree /usr/local/bin/cherrytree
+  sudo -S <<< "$PASSWORD" ln -s $HOME/Documents/Programmes/cherrytree/build/cherrytree /Applications/cherrytree.app
+  echo "Remember to add the cherrytree icon maually to $HOME/Documents/Programmes/cherrytree/build/cherrytree with the GetInfo tool in Finder"
 }
 
 main
