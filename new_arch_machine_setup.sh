@@ -55,6 +55,8 @@ clamScan() {
   else
     echo "Running scan...."
     sudo -S <<< "$2" mkdir /clam01
+    sudo -S <<< "$2" touch /run/clamav/clamd.ctl
+    sudo -S <<< "$2" chown clamav:clamav /run/clamav/clamd.ctl
     sudo -S <<< "$2" freshclam
     sudo -S <<< "$2" clamscan --recursive=yes / --move=/clam01 -l /clam01.txt
   fi
@@ -70,7 +72,7 @@ gitConfig() {
     sudo -S <<< "$3" git config --system core.editor vim
     cp $HOME/Documents/vim/vim-settings/config/gitignore_global $HOME/.gitignore_global
     git config --global core.excludesfile $HOME/.gitignore_global
-    sudo -S <<< "$3" apt-get install kdiff3
+    sudo -S <<< "$3" pacman -S kdiff3
     git config --global --add merge.tool kdiff3
   fi
 }
@@ -240,7 +242,7 @@ guiAppInstall() {
   cd $HOME/Documents/Programmes
   echo 1 | yay --noconfirm --answerdiff=None cherrytree
   anacondaInstall "$1"
-  sudo -S <<< "$1" pacman -S --noconfirm community/slack-online
+  sudo -S <<< "$1" pacman -S --noconfirm community/slack-web-jak
   spotifyInstall "$1"
   pacman -S python2
   #echo 1 | yay --noconfirm --answerdiff=None gnome-python-desktop
@@ -264,6 +266,7 @@ spotifyInstall() {
   cd $HOME/Documents/Programmes
   git clone https://aur.archlinux.org/spotify.git
   cd spotify
+  curl -sS https://download.spotify.com/debian/pubkey.gpg | gpg --import -
   echo "$1" | makepkg -s --noconfirm
 }
 
