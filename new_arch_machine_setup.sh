@@ -25,6 +25,7 @@ main() {
 
   sudo -S <<< "$PASSWORD" pacman -Syyu --noconfirm
   sudo -S <<< "$PASSWORD" pacman -S --noconfirm clamav make yay base-devel xclip
+  timedatectl set-ntp 1
 
   git clone https://github.com/helixarch/debtap.git
   sudo -S <<< "$PASSWORD" ln -s $HOME/Documents/Programmes/debtap/debtap /usr/bin/debtap
@@ -232,15 +233,13 @@ postGNOMEInstall() {
   cd $HOME/Documents/Programmes
   sudo -S <<< "$1" pacman -S --noconfirm conky
   cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.conkyrc
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-  cp $HOME/Documents/vim/vim-settings/config/zshrc $HOME/.zshrc
-  cp $HOME/Documents/vim/vim-settings/config/zshenv_arch $HOME/.zshenv
   guiAppInstall $1
 }
 
 guiAppInstall() {
   cd $HOME/Documents/Programmes
   echo 1 | yay --noconfirm --answerdiff=None cherrytree
+  zshInstall
   anacondaInstall "$1"
   sudo -S <<< "$1" pacman -S --noconfirm community/slack-web-jak
   spotifyInstall "$1"
@@ -268,6 +267,16 @@ spotifyInstall() {
   cd spotify
   curl -sS https://download.spotify.com/debian/pubkey.gpg | gpg --import -
   echo "$1" | makepkg -s --noconfirm
+}
+
+zshInstall() {
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  cp $HOME/Documents/vim/vim-settings/config/zshrc $HOME/.zshrc
+  cp $HOME/Documents/vim/vim-settings/config/zshenv_arch $HOME/.zshenv
+  curl -O https://github.com/eosrei/twemoji-color-font/releases/download/v12.0.1/TwitterColorEmoji-SVGinOT-Linux-12.0.1.tar.gz
+  sudo apt-get install ttf-bitstream-vera
+  tar zxf TwitterColorEmoji-SVGinOT-Linux-12.0.1.tar.gz
+  (cd TwitterColorEmoji-SVGinOT-Linux-12.0.1; ./install.sh)
 }
 
 main

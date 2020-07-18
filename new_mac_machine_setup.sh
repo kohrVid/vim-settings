@@ -213,6 +213,7 @@ postGNOMEInstall() {
 
 guiAppInstall() {
   cd $HOME/Documents/Programmes
+  zshInstall
   anacondaInstall "$1"
   cherryTreeInstall "$1"
 }
@@ -243,6 +244,16 @@ cherryTreeInstall() {
   sudo -S <<< "$PASSWORD" ln -s $HOME/Documents/Programmes/cherrytree/build/cherrytree /usr/local/bin/cherrytree
   sudo -S <<< "$PASSWORD" ln -s $HOME/Documents/Programmes/cherrytree/build/cherrytree /Applications/cherrytree.app
   echo "Remember to add the cherrytree icon maually to $HOME/Documents/Programmes/cherrytree/build/cherrytree with the GetInfo tool in Finder"
+}
+
+zshInstall() {
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  cp $HOME/Documents/vim/vim-settings/config/zshrc $HOME/.zshrc
+  cp $HOME/Documents/vim/vim-settings/config/zshenv_arch $HOME/.zshenv
+  curl -O https://github.com/eosrei/twemoji-color-font/releases/download/v12.0.1/TwitterColorEmoji-SVGinOT-Linux-12.0.1.tar.gz
+  sudo apt-get install ttf-bitstream-vera
+  tar zxf TwitterColorEmoji-SVGinOT-Linux-12.0.1.tar.gz
+  (cd TwitterColorEmoji-SVGinOT-Linux-12.0.1; ./install.sh)
 }
 
 main
