@@ -42,7 +42,7 @@ main() {
   cp $HOME/Documents/vim/vim-settings/config/zshrc $HOME/.zshrc
   cp $HOME/Documents/vim/vim-settings/config/zshenv $HOME/.zshenv
   gitConfig "$GIT_NAME" "$GIT_EMAIL" "$PASSWORD"
-  goInstall "1.12.1" "$PASSWORD"
+  goInstall "1.14.6" "$PASSWORD"
   vimConfig "$PASSWORD"
   tmuxInstall "$IS_A_VM" "$PASSWORD"
   terraformInstall "$PASSWORD"
@@ -91,7 +91,7 @@ goInstall() {
   curl -O "https://dl.google.com/go/go$1.darwin-amd64.tar.gz"
   sudo -S <<< "$2" tar -C /usr/local -xzf "go$1.darwin-amd64.tar.gz"
   source $HOME/.zshrc
-  sudo -S <<< "$2" chown $USER:$USER $GOBIN
+  sudo -S <<< "$2" chown $USER:$USER -R $GOBIN
 }
 
 vimConfig() {

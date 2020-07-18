@@ -24,7 +24,7 @@ main() {
 
   clamScan "$RUN_SCAN"
   gitConfig "$GIT_NAME" "$GIT_EMAIL"
-  goInstall "1.12.1"
+  goInstall "1.14.6"
   vimConfig
   tmuxInstall "$IS_A_VM"
   terraformInstall
@@ -75,7 +75,7 @@ goInstall() {
   echo "export GOPATH=$HOME/Documents/go" >> $HOME/.bashrc
   echo "export GOBIN=$GOROOT/bin" >> $HOME/.bashrc
   source $HOME/.bashrc
-  sudo chown $USER:$USER $GOBIN
+  sudo chown $USER:$USER -R $GOBIN
 }
 
 vimConfig() {
