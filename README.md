@@ -1,14 +1,22 @@
 # VIM settings
 
-Git repo of my vim settings
+This started off as a git repo of my vim settings. It's sort of expanded since
+then...
 
-I also have added a script for setting up new machines with Debian-based
-operating systems:
+I've added scripts for setting up new machines but they're still fairly
+experimental. For now it's best to clone this repo first:
 
-    source <(curl -s https://raw.githubusercontent.com/kohrVid/vim-settings/master/new_machine_setup.sh)
+    git clone https://github.com/kohrVid/vim-settings.git cd vim-settings
 
+To install on a debian machine:
 
-I have also started working on an Arch version though it's use is experimental
-to say the least:
+    ./new_debian_machine_setup.sh
 
-    source <(curl -s https://raw.githubusercontent.com/kohrVid/vim-settings/master/new_arch_machine_setup.sh)
+arch:
+
+    ./new_arch_machine_setup.sh
+
+macOS:
+
+    ./new_mac_machine_setup.sh
+
