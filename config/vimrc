@@ -26,7 +26,10 @@ Plug 'xolox/vim-misc'
 Plug 'uarun/vim-protobuf'
 Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'brooth/far.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'EvanDotPro/nerdtree-chmod'
 Plug 'jiangmiao/auto-pairs'
 Plug 'udalov/kotlin-vim'
@@ -77,10 +80,8 @@ let g:user_emmet_settings = { "haml" : { "extends" : "html" }, "erb" : { "extend
 "let g:NERDTreeDirArrowExpandable = '►' "'>>'
 "let g:NERDTreeDirArrowCollapsible = '▼'
 
-let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-
 if executable('pt')
-  " Use ag over grep
+  " Use pt over grep
   set grepprg=pt\ --nogroup\ --nocolor
   let g:ctrlp_user_command = ['.git', 'cd %s && (git ls-files . -co --exclude-standard; find -path ./node_modules/* -print -type f)', 'pt %s -l --nocolor -g ""']
   let g:ctrlp_use_caching = 0
@@ -89,6 +90,10 @@ if executable('pt')
   let g:ctrlp_max_height=50
   let g:ctrlp_regexp = 1
 endif
+
+" Replace Ctrlp with fzf
+nmap <C-P> :Files
+
 "command -nargs=+ -complete=file -bar pt silent! grep! <args>|cwindow|redraw!
 autocmd QuickFixCmdPost *grep* silent! cwindow
 nmap H <C-W><CR><C-W>K<C-W>b
