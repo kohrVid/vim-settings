@@ -32,6 +32,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'EvanDotPro/nerdtree-chmod'
 Plug 'jiangmiao/auto-pairs'
+Plug 'liuchengxu/space-vim-dark'
 Plug 'udalov/kotlin-vim'
 Plug 'tpope/vim-rhubarb'
 Plug 'hashivim/vim-terraform'
@@ -44,12 +45,15 @@ call plug#end()
 
 
 syntax on
-colorscheme medea_X
+let g:colorscheme_switcher_exclude = ["default", "dw_red", "murphy", "koehler", "morning", "pablo", "peachpuff", "ron", "shine", "slate", "torte", "zellner", "blue", "darkblue", "delek", "desert", "elflord", "evening", "industry" ]
+let g:space_vim_dark_background = 232
+colorscheme space-vim-dark
+autocmd ColorScheme * hi Visual guifg=#192224 guibg=#F9F9FF guisp=#F9F9FF gui=NONE ctermfg=235 ctermbg=189 cterm=NONE
+
 au vimenter * NERDTree
 nmap <F6> :NERDTreeToggle<CR>
 silent! mkdir %:p:h
 let g:NERDTreeWinSize=20
-let g:colorscheme_switcher_exclude = ["default", "dw_red", "murphy", "koehler", "morning", "pablo", "peachpuff", "ron", "shine", "slate", "torte", "zellner", "blue", "darkblue", "delek", "desert", "elflord", "evening", "industry"]
 
 set backspace=2 " make backspace work like most other apps (Mac only)
 set expandtab
@@ -92,7 +96,7 @@ if executable('pt')
 endif
 
 " Replace Ctrlp with fzf
-nmap <C-P> :Files
+nmap <C-P> :Files<CR>
 
 "command -nargs=+ -complete=file -bar pt silent! grep! <args>|cwindow|redraw!
 autocmd QuickFixCmdPost *grep* silent! cwindow
