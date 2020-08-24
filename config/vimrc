@@ -49,6 +49,8 @@ let g:colorscheme_switcher_exclude = ["default", "dw_red", "murphy", "koehler", 
 let g:space_vim_dark_background = 232
 colorscheme space-vim-dark
 autocmd ColorScheme * hi Visual guifg=#192224 guibg=#F9F9FF guisp=#F9F9FF gui=NONE ctermfg=235 ctermbg=189 cterm=NONE
+autocmd ColorScheme * hi LineNr guifg=#bcbcbc guibg=NONE guisp=NONE gui=NONE ctermfg=250 ctermbg=NONE cterm=NONE
+autocmd ColorScheme * hi ColorColumn guifg=NONE guibg=#d70000 guisp=#111111 gui=NONE ctermfg=NONE ctermbg=160 cterm=NONE
 
 au vimenter * NERDTree
 nmap <F6> :NERDTreeToggle<CR>
