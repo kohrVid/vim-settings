@@ -120,19 +120,22 @@ vmap q[ c[]<ESC>P
 vmap q{ c{}<ESC>P
 vmap q` c``<ESC>P
 vmap q- c--<ESC>P
+vmap q# c##<ESC>P
 vmap q_ c__<ESC>P
+vmap q2_ c__<ESC>pa__
+vmap q2# c##<ESC>pa##
 vmap q3' c'''<ESC>p
 vmap q3" c"""<ESC>p
 vmap qss c  <ESC>P
-vmap qs{ c{ <ESC>p}<CR>
-vmap qs[ c[ <ESC>p]<CR>
-vmap qs( c( <ESC>p)<CR>
-vmap qs< c< <ESC>p><CR>
-vmap qs' c' <ESC>p'<CR>
-vmap qs" c" <ESC>p"<CR>
-vmap qs` c` <ESC>p`<CR>
-vmap qs- c- <ESC>p-<CR>
-vmap qs_ c_ <ESC>p_<CR>
+vmap qs{ c{ <ESC>pa}
+vmap qs[ c[ <ESC>pa]
+vmap qs( c( <ESC>pa)
+vmap qs< c< <ESC>pa >
+vmap qs' c' <ESC>pa'
+vmap qs" c" <ESC>pa "<ESC>x
+vmap qs` c` <ESC>pa `
+vmap qs- c- <ESC>pa -
+vmap qs# c# <ESC>pa #
 
 filetype plugin indent on
 imap <S-Tab> <C-D>
