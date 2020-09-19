@@ -233,6 +233,7 @@ postGNOMEInstall() {
   cd $HOME/Documents/Programmes
   sudo -S <<< "$1" pacman -S --noconfirm conky
   cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.conkyrc
+  cp -R $HOME/Documents/vim/vim-settings/config/conky_lua $HOME/.conky
   guiAppInstall $1
 }
 

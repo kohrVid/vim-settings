@@ -248,6 +248,7 @@ postGNOMEInstall() {
   cd $HOME/Documents/Programmes
   sudo -S <<< "$1" apt-get install conky
   cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.conkyrc
+  cp -R $HOME/Documents/vim/vim-settings/config/conky_lua $HOME/.conky
   zshInstall "$1"
   guiAppInstall "$1"
 }
