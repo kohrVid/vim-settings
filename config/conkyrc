@@ -1,6 +1,5 @@
 conky.config = {
-  lua_load='$HOME/.conky/cpu.lua',
-  --lua_load='$HOME/.conky/top.lua',
+  lua_load='$HOME/.conky/lans.lua $HOME/.conky/cpu.lua $HOME/.conky/top.lua',
   --lua_draw_hook_post = 'main',
 
   background=true,
@@ -27,10 +26,10 @@ conky.config = {
 
   use_xft=true,
   xftalpha=1,
-  text_buffer_size=256,
+  text_buffer_size=500,
   override_utf8_locale=true,
   uppercase=false,
-  font="monospace:size=15, weight: bold",
+  font="monospace:size=1, weight: bold",
 
   default_color='ffffff',
   color1='00d9b8',
@@ -43,14 +42,16 @@ conky.text = [[
   ${color1}Uptime:$color $uptime
   $color$hr
   ${color1}IP Address: $color${execi 3000 wget http://ipinfo.io/ip -O - } ${color1}Country: $color${execi 3000 wget http://ipinfo.io/country -O - }
-  ${if_match ${upspeed wlp4s0} >= 1}
-  ${color1}wifi Up: $color${upspeed wlp4s0} Down:$color ${downspeed wlp4s0} \
-  ${else} eth ${color1}Up: $color${upspeed eth1} Down:$color ${downspeed eth1}${endif}
+  ${lua_parse conky_lans}
   $color$hr
-  ${color1}Frequency:$color $freq_g GHz
+  ${color1}CPU Frequency:$color $freq_g GHz
   ${lua_parse conky_mycpus }
+
   ${color1}Processes:$color $processes  ${color1}Running:$color $running_processes
-  ${color1}ACPI Temp: $color${exec sensors | grep temp1 | awk '{print $2}'}
+  ${color1}ACPI Temp: $color${exec sensors | grep temp1 | awk '{printf $2 "\ \ "}'}
+  ${color1}Core0 Temp: $color${exec sensors | grep "Core 0" | awk '{print $3}'} ${color1}Core1 Temp: $color${exec sensors | grep "Core 1" | awk '{print $3}'}
+  ${color1}Core2 Temp: $color${exec sensors | grep "Core 2" | awk '{print $3}'} ${color1}Core3 Temp: $color${exec sensors | grep "Core 3" | awk '{print $3}'}
+  ${color1}Core4 Temp: $color${exec sensors | grep "Core 4" | awk '{print $3}'} ${color1}Core5 Temp: $color${exec sensors | grep "Core 5" | awk '{print $3}'}
   $color$hr
   ${color1}RAM Usage:$color $mem/$memmax - $memperc%
   ${membar 4}
@@ -62,7 +63,8 @@ conky.text = [[
   ${swapbar 4}
   $hr
   ${color1}Name${goto 172}PID${goto 240}CPU%${goto 320}MEM
-  ${lua_parse conky_top 10}
+  #${lua_parse conky_top 10}
+
   ${color}${top name 1}${goto 170}${top pid 1}${goto 230}${top cpu 1}${goto 310}${top mem 1}
   ${color2}${top name 2}${goto 170}${top pid 2}${goto 230}${top cpu 2}${goto 310}${top mem 2}
   ${color}${top name 3}${goto 170}${top pid 3}${goto 230}${top cpu 3}${goto 310}${top mem 3}
