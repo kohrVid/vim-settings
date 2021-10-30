@@ -264,10 +264,10 @@ postGNOMEInstall() {
 
 zshInstall() {
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-  curl -O https://github.com/eosrei/twemoji-color-font/releases/download/v12.0.1/TwitterColorEmoji-SVGinOT-Linux-12.0.1.tar.gz
+  curl -O https://github.com/eosrei/twemoji-color-font/releases/download/v13.1.0/TwitterColorEmoji-SVGinOT-Linux-13.1.0.tar.gz
   sudo -S <<< "$1" apt-get install ttf-bitstream-vera
-  tar zxf TwitterColorEmoji-SVGinOT-Linux-12.0.1.tar.gz
-  (cd TwitterColorEmoji-SVGinOT-Linux-12.0.1; ./install.sh)
+  tar zxf TwitterColorEmoji-SVGinOT-Linux-13.1.0.tar.gz
+  (cd TwitterColorEmoji-SVGinOT-Linux-13.1.0; ./install.sh)
   cp $HOME/Documents/vim/vim-settings/config/zshrc $HOME/.zshrc
   cp $HOME/Documents/vim/vim-settings/config/zshenv $HOME/.zshenv
 }

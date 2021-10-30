@@ -217,7 +217,7 @@ postGNOMEInstall() {
 
 guiAppInstall() {
   cd $HOME/Documents/Programmes
-  zshInstall
+  zshInstall "$1"
   anacondaInstall "$1"
   cherryTreeInstall "$1"
 }
@@ -252,10 +252,9 @@ cherryTreeInstall() {
 
 zshInstall() {
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-  curl -O https://github.com/eosrei/twemoji-color-font/releases/download/v12.0.1/TwitterColorEmoji-SVGinOT-Linux-12.0.1.tar.gz
-  sudo apt-get install ttf-bitstream-vera
-  tar zxf TwitterColorEmoji-SVGinOT-Linux-12.0.1.tar.gz
-  (cd TwitterColorEmoji-SVGinOT-Linux-12.0.1; ./install.sh)
+  brew tap caskroom/fonts
+  brew cask install font-twitter-color-emoji
+  sudo -S <<< "$1" brew cask install ttf-bitstream-vera
   cp $HOME/Documents/vim/vim-settings/config/zshrc $HOME/.zshrc
   cp $HOME/Documents/vim/vim-settings/config/zshenv $HOME/.zshenv
 }

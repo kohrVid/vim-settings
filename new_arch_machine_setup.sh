@@ -21,7 +21,7 @@ main() {
   read INSTALL_HASKELL
 
 
-  mkdir -p $HOME/Documents/go $HOME/Documents/Programmes $HOME/Documents/vim
+  mkdir -p $HOME/Documents/go $HOME/Documents/Programmes/aur $HOME/Documents/vim
 
   sudo -S <<< "$PASSWORD" pacman -Syyu --noconfirm
   sudo -S <<< "$PASSWORD" pacman -S --noconfirm make yay base-devel xclip
@@ -246,7 +246,7 @@ postGNOMEInstall() {
 guiAppInstall() {
   cd $HOME/Documents/Programmes
   echo 1 | yay --noconfirm --answerdiff=None cherrytree
-  zshInstall
+  zshInstall "$1"
   anacondaInstall "$1"
   sudo -S <<< "$1" pacman -S --noconfirm community/slack-web-jak
   spotifyInstall "$1"
@@ -277,13 +277,14 @@ spotifyInstall() {
 }
 
 zshInstall() {
+  (cd $HOME/Documents/Programmes/aur
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   cp $HOME/Documents/vim/vim-settings/config/zshrc $HOME/.zshrc
   cp $HOME/Documents/vim/vim-settings/config/zshenv_arch $HOME/.zshenv
-  curl -O https://github.com/eosrei/twemoji-color-font/releases/download/v12.0.1/TwitterColorEmoji-SVGinOT-Linux-12.0.1.tar.gz
-  sudo apt-get install ttf-bitstream-vera
-  tar zxf TwitterColorEmoji-SVGinOT-Linux-12.0.1.tar.gz
-  (cd TwitterColorEmoji-SVGinOT-Linux-12.0.1; ./install.sh)
+  git clone https://aur.archlinux.org/ttf-twemoji-color.git
+  cd ttf-twemoji-color
+  makepkg -si
+  sudo -S <<< "$1" pacman -S ttf-bitstream-vera)
 }
 
 main
