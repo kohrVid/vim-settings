@@ -32,10 +32,12 @@ if [[ -z $(which pt) ]]
         if [[ -n $GOPATH ]]
         then
           vim +GoInstallBinaries +qall
-          go get -u github.com/monochromegane/the_platinum_searcher/...
-          go install -v github.com/monochromegane/the_platinum_searcher/...
-
-          sudo ln -s $GOPATH/bin/pt /usr/bin/pt
+          go get -u github.com/monochromegane/the_platinum_searcher
+          cd $GOPATH/src/github.com/monochromegane/
+          git clone https://github.com/monochromegane/the_platinum_searcher.git
+          cd the_platinum_searcher
+          go mod init
+          go get -u ./...
         else
           echo "Please set and export your GOPATH before trying again"
         fi
