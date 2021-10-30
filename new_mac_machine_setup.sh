@@ -40,7 +40,7 @@ main() {
   clamScan "$RUN_SCAN" "$PASSWORD"
 
   gitConfig "$GIT_NAME" "$GIT_EMAIL" "$PASSWORD"
-  goInstall "1.14.6" "$PASSWORD"
+  goInstall "1.17.2" "$PASSWORD"
   vimConfig "$PASSWORD"
   tmuxInstall "$IS_A_VM" "$PASSWORD"
   terraformInstall "$PASSWORD"
