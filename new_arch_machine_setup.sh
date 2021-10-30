@@ -27,7 +27,7 @@ main() {
   sudo -S <<< "$PASSWORD" pacman -S --noconfirm make yay base-devel xclip
   timedatectl set-ntp 1
 
-  git clone https://github.com/helixarch/debtap.git
+  (cd $HOME/Documents/Programmes; git clone https://github.com/helixarch/debtap.git)
   sudo -S <<< "$PASSWORD" ln -s $HOME/Documents/Programmes/debtap/debtap /usr/bin/debtap
 
   clamScan "$RUN_SCAN" "$PASSWORD"
