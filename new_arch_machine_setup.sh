@@ -269,11 +269,11 @@ anacondaInstall() {
 }
 
 spotifyInstall() {
-  cd $HOME/Documents/Programmes
+  cd $HOME/Documents/Programmes/aur
   git clone https://aur.archlinux.org/spotify.git
   cd spotify
-  curl -sS https://download.spotify.com/debian/pubkey.gpg | gpg --import -
-  echo "$1" | makepkg -s --noconfirm
+  curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
+  echo "$1" | makepkg -si --noconfirm
 }
 
 zshInstall() {
