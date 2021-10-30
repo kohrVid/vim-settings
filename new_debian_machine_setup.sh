@@ -21,7 +21,7 @@ main() {
   read INSTALL_HASKELL
 
   sudo -S <<< "$PASSWORD" apt-get update
-  sudo -S <<< "$PASSWORD" apt-get install software-properties-common systemd-services git clamav ssh make rsync gnupg2
+  sudo -S <<< "$PASSWORD" apt-get install software-properties-common systemd-services git ssh make rsync gnupg2
   mkdir -p $HOME/Documents/go $HOME/Documents/Programmes $HOME/Documents/vim
 
   clamScan "$RUN_SCAN" "$PASSWORD"
@@ -42,12 +42,16 @@ main() {
 }
 
 clamScan() {
+  sudo -S <<< "$2" apt-get install clamav
+
   if [ `echo "$1" | awk '{print toupper($0)}'` = "N" ]
   then
     echo "Skipping scan"
   else
     echo "Running scan...."
     sudo -S <<< "$2" mkdir /clam01
+    sudo -S <<< "$2" touch /run/clamav/clamd.ctl
+    sudo -S <<< "$2" chown clamav:clamav /run/clamav/clamd.ctl
     sudo -S <<< "$2" freshclam
     sudo -S <<< "$2" clamscan --recursive=yes / --move=/clam01 -l /clam01.txt
   fi

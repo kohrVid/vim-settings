@@ -32,10 +32,6 @@ main() {
   mkdir -p $HOME/Documents/go $HOME/Documents/Programmes $HOME/Documents/vim
 
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-  brew install clamav
-  sudo chmod a+rw /usr/local/Cellar/clamav/0.102.2/share/clamav/
-  cp /usr/local/etc/clamav/freshclam.conf.sample /usr/local/etc/clamav/freshclam.conf
-  sed -i -e 's/Example/# Example/g' /usr/local/etc/clamav/freshclam.conf
 
   clamScan "$RUN_SCAN" "$PASSWORD"
 
@@ -58,6 +54,11 @@ main() {
 }
 
 clamScan() {
+  brew install clamav
+  sudo chmod a+rw /usr/local/Cellar/clamav/0.102.2/share/clamav/
+  cp /usr/local/etc/clamav/freshclam.conf.sample /usr/local/etc/clamav/freshclam.conf
+  sed -i -e 's/Example/# Example/g' /usr/local/etc/clamav/freshclam.conf
+
   if [ `echo "$1" | awk '{print toupper($0)}'` = "N" ]
   then
     echo "Skipping scan"

@@ -24,7 +24,7 @@ main() {
   mkdir -p $HOME/Documents/go $HOME/Documents/Programmes $HOME/Documents/vim
 
   sudo -S <<< "$PASSWORD" pacman -Syyu --noconfirm
-  sudo -S <<< "$PASSWORD" pacman -S --noconfirm clamav make yay base-devel xclip
+  sudo -S <<< "$PASSWORD" pacman -S --noconfirm make yay base-devel xclip
   timedatectl set-ntp 1
 
   git clone https://github.com/helixarch/debtap.git
@@ -50,6 +50,8 @@ main() {
 }
 
 clamScan() {
+  sudo -S <<< "$2" pacman -S --noconfirm clamav
+
   if [ `echo "$1" | awk '{print toupper($0)}'` = "N" ]
   then
     echo "Skipping scan"
