@@ -75,6 +75,7 @@ gitConfig() {
     git config --global core.excludesfile $HOME/.gitignore_global
     sudo -S <<< "$3" pacman -S kdiff3
     git config --global --add merge.tool kdiff3
+    git config --global commit.verbose true
   fi
 }
 
