@@ -97,7 +97,11 @@ vimConfig() {
             --enable-rubyinterp
   make && sudo -S <<< "$1" make install)
 
-  (git clone https://github.com/kohrVid/vim-settings.git;
+  if [ ! -d $HOME/Documents/vim/vim-settings ]
+  then
+    git clone https://github.com/kohrVid/vim-settings.git;
+  fi
+
   cd vim-settings;
   git remote remove origin;
   git remote add origin git@github.com:kohrVid/vim-settings.git;

@@ -98,12 +98,15 @@ vimConfig() {
   cd $HOME/Documents/vim
   sudo -S <<< "$1" pacman -S --noconfirm gvim
 
+  if [ ! -d $HOME/Documents/vim/vim-settings ]
+  then
+    git clone https://github.com/kohrVid/vim-settings.git;
+  fi
 
-  (git clone https://github.com/kohrVid/vim-settings.git;
   cd vim-settings;
   git remote remove origin;
   git remote add origin git@github.com:kohrVid/vim-settings.git;
-  ./bundle.sh)
+  ./bundle.sh
 }
 
 tmuxInstall() {
