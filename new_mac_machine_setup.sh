@@ -211,7 +211,6 @@ postGNOMEInstall() {
   brew install conky
   cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.conkyrc
   cp -R $HOME/Documents/vim/vim-settings/config/conky_lua $HOME/.conky
-  sudo -S <<< "$1" sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   guiAppInstall $1
 }
 
