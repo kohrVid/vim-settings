@@ -108,6 +108,8 @@ vimConfig() {
   git remote remove origin;
   git remote add origin git@github.com:kohrVid/vim-settings.git;
   ./bundle.sh
+  # vim-gtk and xclip are needed for clipboard support from vim and tmux
+  brew install xclip
 }
 
 tmuxInstall() {
