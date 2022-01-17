@@ -26,7 +26,7 @@ Plug 'xolox/vim-misc'
 Plug 'uarun/vim-protobuf'
 Plug 'vim-ruby/vim-ruby'
 Plug 'slim-template/vim-slim'
-Plug 'brooth/far.vim'
+Plug 'kohrVid/replacer.vim'
 "Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
