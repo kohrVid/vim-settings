@@ -48,7 +48,7 @@ conky.text = [[
   ${lua_parse conky_mycpus }
 
   ${color1}Processes:$color $processes  ${color1}Running:$color $running_processes
-  ${color1}ACPI Temp: $color${exec sensors | grep temp1 | awk '{printf $2 "\ \ "}'}
+  ${color1}ACPI Temp: $color${exec sensors | grep temp1 | awk '{printf $2 "  "}'}
   ${color1}Core0 Temp: $color${exec sensors | grep "Core 0" | awk '{print $3}'} ${color1}Core1 Temp: $color${exec sensors | grep "Core 1" | awk '{print $3}'}
   ${color1}Core2 Temp: $color${exec sensors | grep "Core 2" | awk '{print $3}'} ${color1}Core3 Temp: $color${exec sensors | grep "Core 3" | awk '{print $3}'}
   ${color1}Core4 Temp: $color${exec sensors | grep "Core 4" | awk '{print $3}'} ${color1}Core5 Temp: $color${exec sensors | grep "Core 5" | awk '{print $3}'}
