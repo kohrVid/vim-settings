@@ -6,7 +6,7 @@ then...
 I've added scripts for setting up new machines but they're still fairly
 experimental. For now it's best to clone this repo first:
 
-    git clone https://github.com/kohrVid/vim-settings.git cd vim-settings
+    git clone https://github.com/kohrVid/vim-settings.git; cd vim-settings
 
 To install on a debian machine:
 
