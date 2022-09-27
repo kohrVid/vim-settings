@@ -20,3 +20,7 @@ macOS:
 
     ./new_mac_machine_setup.sh
 
+macOS M1:
+
+    ./new_mac_m1_machine_setup.sh
+
