@@ -95,7 +95,7 @@ goInstall() {
 }
 
 vimConfig() {
-#  nodeInstall
+  nodeInstall
   cd $HOME/Documents/vim
   brew install macvim
 
