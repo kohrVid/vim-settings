@@ -11,7 +11,17 @@
       "rootPatterns": [".stack.yaml", "cabal.config", "package.yaml"],
       "filetypes": ["hs", "lhs", "haskell"],
       "initializationOptions": {}
+    },
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": ["terraform"],
+      "initializationOptions": {}
     }
   },
+  "coc.preferences.formatOnSaveFiletypes": ["ruby"],
+  "solargraph.autoformat": false,
+  "solargraph.formatting": false,
+  "solargraph.hover": true,
+  "solargraph.diagnostics": true,
   "python.jediEnabled": true
 }
