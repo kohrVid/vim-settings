@@ -55,9 +55,13 @@ main() {
 
 clamScan() {
   brew install clamav
-  sudo chmod a+rw /usr/local/Cellar/clamav/0.102.2/share/clamav/
-  cp /usr/local/etc/clamav/freshclam.conf.sample /usr/local/etc/clamav/freshclam.conf
-  sed -i -e 's/Example/# Example/g' /usr/local/etc/clamav/freshclam.conf
+  sudo -S <<< "$2" chmod a+rw /usr/local/Cellar/clamav/0.102.2/share/clamav/
+  sudo -S <<< "$2" mkdir -p /usr/local/etc/clamav/
+
+  sudo -S <<< "$2" su
+  touch /usr/local/etc/clamav/freshclam.conf
+  echo "DatabaseMirror database.clamav.net" >> /opt/homebrew/etc/clamav/freshclam.conf
+  exit
 
   if [ `echo "$1" | awk '{print toupper($0)}'` = "N" ]
   then
