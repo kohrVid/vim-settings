@@ -173,6 +173,7 @@ nodeInstall() {
   source $HOME/.nvm/nvm.sh
   nvm install --lts
   nvm use --lts
+  npm install -g prettier
 }
 
 terraformInstall() {

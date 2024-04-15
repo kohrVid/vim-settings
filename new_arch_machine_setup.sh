@@ -197,12 +197,13 @@ nodeInstall() {
   source $HOME/.nvm/nvm.sh
   nvm install --lts
   nvm use --lts
+  npm install -g prettier
 }
 
 terraformInstall() {
   cd $HOME/Documents/Programmes
-  curl -O https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
-  unzip terraform_0.11.13_linux_amd64.zip
+  curl -O https://releases.hashicorp.com/terraform/1.7.4/terraform_1.7.4_linux_amd64.zip
+  unzip terraform_1.7.4_linux_amd64.zip
   sudo -S <<< "$1" ln -s $HOME/Documents/Programmes/terraform /usr/bin/terraform
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/wata727/tflint/v0.7.5/install_linux.sh)"
 }
@@ -257,9 +258,9 @@ guiAppInstall() {
 anacondaInstall() {
   cd $HOME/Documents/Programmes
   sudo -S <<< "$1" pacman -Sy libxau libxi libxss libxtst libxcursor libxcomposite libxdamage libxfixes libxrandr libxrender mesa-libgl  alsa-lib libglvnd
-  curl -O https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh
-  sudo -S <<< "$1" chmod +x ./Anaconda3-2019.10-Linux-x86_64.sh
-  ./Anaconda3-2019.10-Linux-x86_64.sh
+  curl -O https://repo.anaconda.com/archive/Anaconda3-2023.09-0-Linux-x86_64.sh
+  sudo -S <<< "$1" chmod +x ./Anaconda3-2023.09-0-Linux-x86_64.sh
+  ./Anaconda3-2023.09-0-Linux-x86_64.sh
   source $HOME/.zshrc
   echo "y" | conda install -c anaconda-cluster scala
   echo "y" | conda install -c r r-irkernel rpy2
