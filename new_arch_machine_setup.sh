@@ -238,8 +238,8 @@ haskellInstall() {
 postGNOMEInstall() {
   cd $HOME/Documents/Programmes
   sudo -S <<< "$1" pacman -S --noconfirm conky
-  cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.conkyrc
-  cp -R $HOME/Documents/vim/vim-settings/config/conky_lua $HOME/.conky
+  cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.config/conky/conky.conf
+  cp -R $HOME/Documents/vim/vim-settings/config/conky_lua/* $HOME/.config/conky/
   guiAppInstall $1
 }
 
