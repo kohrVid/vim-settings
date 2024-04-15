@@ -26,7 +26,7 @@ main() {
 
   clamScan "$RUN_SCAN" "$PASSWORD"
   gitConfig "$GIT_NAME" "$GIT_EMAIL" "$PASSWORD"
-  goInstall "1.17.2" "$PASSWORD"
+  goInstall "1.21.5" "$PASSWORD"
   vimConfig "$PASSWORD"
   tmuxInstall "$IS_A_VM" "$PASSWORD"
   terraformInstall "$PASSWORD"
@@ -198,6 +198,7 @@ nodeInstall() {
   source $HOME/.nvm/nvm.sh
   nvm install --lts
   nvm use --lts
+  npm install -g prettier
 }
 
 terraformInstall() {
@@ -256,8 +257,8 @@ haskellInstall() {
 postGNOMEInstall() {
   cd $HOME/Documents/Programmes
   sudo -S <<< "$1" apt-get install conky
-  cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.conkyrc
-  cp -R $HOME/Documents/vim/vim-settings/config/conky_lua $HOME/.conky
+  cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.config/conky/conky.conf
+  cp -R $HOME/Documents/vim/vim-settings/config/conky_lua/* $HOME/.config/conky/
   zshInstall "$1"
   guiAppInstall "$1"
 }

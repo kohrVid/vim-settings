@@ -1,6 +1,5 @@
 conky.config = {
-  lua_load='$HOME/.conky/lans.lua $HOME/.conky/cpu.lua $HOME/.conky/top.lua',
-  --lua_draw_hook_post = 'main',
+   lua_load='./lans.lua ./cpu.lua ./top.lua',
 
   background=true,
   alignment='tr',
@@ -42,10 +41,10 @@ conky.text = [[
   ${color1}Uptime:$color $uptime
   $color$hr
   ${color1}IP Address: $color${execi 3000 wget http://ipinfo.io/ip -O - } ${color1}Country: $color${execi 3000 wget http://ipinfo.io/country -O - }
-  ${lua_parse conky_lans}
+  ${lua_parse lans}
   $color$hr
   ${color1}CPU Frequency:$color $freq_g GHz
-  ${lua_parse conky_mycpus }
+  ${lua_parse mycpus}
 
   ${color1}Processes:$color $processes  ${color1}Running:$color $running_processes
   ${color1}ACPI Temp: $color${exec sensors | grep temp1 | awk '{printf $2 "  "}'}
@@ -63,7 +62,7 @@ conky.text = [[
   ${swapbar 4}
   $hr
   ${color1}Name${goto 172}PID${goto 240}CPU%${goto 320}MEM
-  #${lua_parse conky_top 10}
+  #${lua_parse top 10}
 
   ${color}${top name 1}${goto 170}${top pid 1}${goto 230}${top cpu 1}${goto 310}${top mem 1}
   ${color2}${top name 2}${goto 170}${top pid 2}${goto 230}${top cpu 2}${goto 310}${top mem 2}

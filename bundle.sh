@@ -14,6 +14,9 @@ else
 fi
 
 vim +PlugInstall +"CocInstall coc-python" +PlugClean! +qall
+vim +PlugInstall +"CocInstall coc-pairs" +PlugClean! +qall
+vim +PlugInstall +"CocInstall coc-solargraph" +PlugClean! +qall
+vim +PlugInstall +"CocInstall coc-tsserver" +PlugClean! +qall
 (vim -u NONE -c "helptags vim-rhubarb/doc" -c q;)
 
 if [ ! -d ~/.vim/ftdetect ]
@@ -32,12 +35,12 @@ if [[ -z $(which pt) ]]
         if [[ -n $GOPATH ]]
         then
           vim +GoInstallBinaries +qall
-          go get -u github.com/monochromegane/the_platinum_searcher
+          mkdir -p $GOPATH/src/github.com/monochromegane/
           cd $GOPATH/src/github.com/monochromegane/
           git clone https://github.com/monochromegane/the_platinum_searcher.git
           cd the_platinum_searcher
           go mod init
-          go get -u ./...
+          go install -v ./...
         else
           echo "Please set and export your GOPATH before trying again"
         fi
