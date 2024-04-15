@@ -14,6 +14,9 @@ else
 fi
 
 vim +PlugInstall +"CocInstall coc-python" +PlugClean! +qall
+vim +PlugInstall +"CocInstall coc-pairs" +PlugClean! +qall
+vim +PlugInstall +"CocInstall coc-solargraph" +PlugClean! +qall
+vim +PlugInstall +"CocInstall coc-tsserver" +PlugClean! +qall
 (vim -u NONE -c "helptags vim-rhubarb/doc" -c q;)
 
 if [ ! -d ~/.vim/ftdetect ]

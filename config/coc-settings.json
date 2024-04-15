@@ -1,16 +1,21 @@
 {
   "coc.preferences.jumpCommand": "vsplit",
   "languageserver": {
-    "metals": {
-      "command": "metals-vim",
-      "rootPatterns": ["build.sbt"],
-      "filetypes": ["scala", "sbt"]
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
     },
     "haskell-ide-engine": {
       "command": "hie-wrapper",
       "rootPatterns": [".stack.yaml", "cabal.config", "package.yaml"],
       "filetypes": ["hs", "lhs", "haskell"],
       "initializationOptions": {}
+    },
+    "metals": {
+      "command": "metals-vim",
+      "rootPatterns": ["build.sbt"],
+      "filetypes": ["scala", "sbt"]
     },
     "terraform": {
       "command": "terraform-lsp",
@@ -20,6 +25,7 @@
   },
   "coc.preferences.formatOnSaveFiletypes": ["ruby"],
   "solargraph.autoformat": false,
+  "solargraph.bundlerPath": "bundle",
   "solargraph.formatting": false,
   "solargraph.hover": true,
   "solargraph.diagnostics": true,
