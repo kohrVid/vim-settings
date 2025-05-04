@@ -250,7 +250,6 @@ guiAppInstall() {
   zshInstall "$1"
   anacondaInstall "$1"
   sudo -S <<< "$1" pacman -S --noconfirm community/slack-web-jak
-  spotifyInstall "$1"
   pacman -S python2
   #echo 1 | yay --noconfirm --answerdiff=None gnome-python-desktop
 }
@@ -267,14 +266,6 @@ anacondaInstall() {
   echo "y" | conda install jupyter
   mv $HOME/anaconda3/compiler_compat/ld $HOME/anaconda3/compiler_compat/ldOld
   echo "y" | conda install -c anaconda psycopg2
-}
-
-spotifyInstall() {
-  cd $HOME/Documents/Programmes/aur
-  git clone https://aur.archlinux.org/spotify.git
-  cd spotify
-  curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
-  echo "$1" | makepkg -si --noconfirm
 }
 
 zshInstall() {
