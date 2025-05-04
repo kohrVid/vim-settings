@@ -24,9 +24,12 @@ main() {
   mkdir -p $HOME/Documents/go $HOME/Documents/Programmes/aur $HOME/Documents/vim
 
   sudo -S <<< "$PASSWORD" pacman -Syyu --noconfirm
-  sudo -S <<< "$PASSWORD" pacman -S --noconfirm make yay base-devel xclip
+  sudo -S <<< "$PASSWORD" pacman -S --noconfirm make yay base-devel xclip zip
+  curl -s "https://get.sdkman.io" | bash
   timedatectl set-ntp 1
-
+  echo 1 | yay --noconfirm --answerdiff=None jdk
+  sudo -S <<< "$PASSWORD" archlinux-java set java-24-jdk
+  sdk install gradle
   (cd $HOME/Documents/Programmes; git clone https://github.com/helixarch/debtap.git)
   sudo -S <<< "$PASSWORD" ln -s $HOME/Documents/Programmes/debtap/debtap /usr/bin/debtap
 
@@ -158,17 +161,7 @@ scalaInstall() {
     cd $HOME/Documents/Programmes/
     echo "Installing scala...."
     sudo -S <<< "$2" pacman -S --noconfirm default-jre default-jdk
-    curl -O https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.gz
-    sudo -S <<< "$2" tar xvf openjdk-11.0.1_linux-x64_bin.tar.gz --directory /usr/lib/jvm/
-    /usr/lib/jvm/jdk-11.0.1/bin/java -version
-    java_home="export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64\nexport PATH=\$JAVA_HOME/bin/:\$PATH"
-    echo $java_home >> $HOME/.bashrc
-    sudo -S <<< "$2" echo $java_home >> /etc/environment
-    sudo -S <<< "$2" pacman -S --noconfirm scala
-    echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
-    sudo -S <<< "$2" apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
-    sudo -S <<< "$2" pacman -Syyu --noconfirm
-    sudo -S <<< "$2" pacman -S --noconfirm  sbt
+    echo 1 | yay --noconfirm --answerdiff=None scala
     vimMetals "$2"
   else
     echo "Skipping scala installation"
