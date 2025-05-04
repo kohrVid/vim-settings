@@ -105,7 +105,7 @@ vimConfig() {
   cd vim-settings;
   git remote remove origin;
   git remote add origin git@github.com:kohrVid/vim-settings.git;
-  ./bundle.sh)
+  ./bundle.sh;
   # vim-gtk and xclip are needed for clipboard support from vim and tmux
   sudo -S <<< "$1" aptitude install vim-gtk xclip
 }
