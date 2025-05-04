@@ -32,7 +32,7 @@ main() {
 
   clamScan "$RUN_SCAN" "$PASSWORD"
   gitConfig "$GIT_NAME" "$GIT_EMAIL" "$PASSWORD"
-  goInstall "1.21.5" "$PASSWORD"
+  goInstall "1.24.2" "$PASSWORD"
   vimConfig "$PASSWORD"
   tmuxInstall "$IS_A_VM" "$PASSWORD"
   terraformInstall "$PASSWORD"
@@ -91,6 +91,7 @@ goInstall() {
   echo "export GOBIN=$GOROOT/bin" >> $HOME/.bashrc
   source $HOME/.bashrc
   sudo -S <<< "$2" chown $USER:$USER -R $GOBIN
+  go install golang.org/x/tools/gopls@latest
 }
 
 vimConfig() {
