@@ -3,6 +3,7 @@ silent! if  plug#begin('~/.vim/plugged')
 "Plugins
 Plug 'junegunn/vim-github-dashboard'
 Plug 'junegunn/vim-emoji'
+Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/vim-journal'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
@@ -87,11 +88,6 @@ let g:user_emmet_settings = { "haml" : { "extends" : "html" }, "erb" : { "extend
 "in vagrant, use:
 "let g:NERDTreeDirArrowExpandable = '►' "'>>'
 "let g:NERDTreeDirArrowCollapsible = '▼'
-
-if executable('pt')
-  " Use pt over grep
-  set grepprg=pt\ --nogroup\ --nocolor
-endif
 
 " Replace Ctrlp with fzf
 nmap <C-P> :Files<CR>
