@@ -24,7 +24,7 @@ main() {
   mkdir -p $HOME/Documents/go $HOME/Documents/Programmes/aur $HOME/Documents/vim
 
   sudo -S <<< "$PASSWORD" pacman -Syyu --noconfirm
-  sudo -S <<< "$PASSWORD" pacman -S --noconfirm make yay base-devel xclip zip
+  sudo -S <<< "$PASSWORD" pacman -S --noconfirm make yay base-devel xclip zip direnv
   curl -s "https://get.sdkman.io" | bash
   timedatectl set-ntp 1
   echo 1 | yay --noconfirm --answerdiff=None jdk
@@ -246,6 +246,7 @@ guiAppInstall() {
   sudo -S <<< "$1" pacman -S --noconfirm community/slack-web-jak
   pacman -S python2
   #echo 1 | yay --noconfirm --answerdiff=None gnome-python-desktop
+  git clone https://aur.archlinux.org/asdf-vm.git && cd asdf-vm && makepkg -si
 }
 
 anacondaInstall() {
