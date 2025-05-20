@@ -216,8 +216,8 @@ haskellInstall() {
 postGNOMEInstall() {
   cd $HOME/Documents/Programmes
   brew install conky
-  cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.conkyrc
-  cp -R $HOME/Documents/vim/vim-settings/config/conky_lua $HOME/.conky
+  cp $HOME/Documents/vim/vim-settings/config/conky.conf $HOME/.config/conky/conky.conf
+  cp -R $HOME/Documents/vim/vim-settings/config/conky_lua $HOME/.config/conky/
   guiAppInstall $1
 }
 
