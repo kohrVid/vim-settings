@@ -204,10 +204,10 @@ nodeInstall() {
 
 terraformInstall() {
   cd $HOME/Documents/Programmes
-  curl -O https://releases.hashicorp.com/terraform/0.11.13/terraform_0.11.13_linux_amd64.zip
-  unzip terraform_0.11.13_linux_amd64.zip
-  sudo -S <<< "$1" ln -s $HOME/Documents/Programmes/terraform /usr/bin/terraform
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/wata727/tflint/v0.7.5/install_linux.sh)"
+  curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh -o install-opentofu.sh
+  chmod +x install-opentofu.sh
+  sudo -S <<< "$1" ./install-opentofu.sh --install-method standalone
+  sudo -S <<< "$1" curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 }
 
 dockerInstall() {
