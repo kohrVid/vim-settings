@@ -26,7 +26,7 @@ main() {
 
   clamScan "$RUN_SCAN" "$PASSWORD"
   gitConfig "$GIT_NAME" "$GIT_EMAIL" "$PASSWORD"
-  goInstall "1.21.5" "$PASSWORD"
+  goInstall "1.24.2" "$PASSWORD"
   vimConfig "$PASSWORD"
   tmuxInstall "$IS_A_VM" "$PASSWORD"
   terraformInstall "$PASSWORD"
@@ -83,6 +83,7 @@ goInstall() {
   echo "export GOBIN=$GOROOT/bin" >> $HOME/.bashrc
   source $HOME/.bashrc
   sudo -S <<< "$2" chown $USER:$USER -R $GOBIN
+  go install golang.org/x/tools/gopls@latest
 }
 
 vimConfig() {
@@ -105,7 +106,7 @@ vimConfig() {
   cd vim-settings;
   git remote remove origin;
   git remote add origin git@github.com:kohrVid/vim-settings.git;
-  ./bundle.sh)
+  ./bundle.sh;
   # vim-gtk and xclip are needed for clipboard support from vim and tmux
   sudo -S <<< "$1" aptitude install vim-gtk xclip
 }
@@ -257,8 +258,8 @@ haskellInstall() {
 postGNOMEInstall() {
   cd $HOME/Documents/Programmes
   sudo -S <<< "$1" apt-get install conky
-  cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.config/conky/conky.conf
-  cp -R $HOME/Documents/vim/vim-settings/config/conky_lua/* $HOME/.config/conky/
+  cp $HOME/Documents/vim/vim-settings/config/conky.conf $HOME/.config/conky/conky.conf
+  cp -R $HOME/Documents/vim/vim-settings/config/conky_lua $HOME/.config/conky/
   zshInstall "$1"
   guiAppInstall "$1"
 }
@@ -280,7 +281,6 @@ guiAppInstall() {
   anacondaInstall "$1"
   curl -O https://downloads.slack-edge.com/linux_releases/slack-desktop-3.3.8-amd64.deb
   sudo -S <<< "$1" dpkg -i slack-desktop-3.3.8-amd64.deb
-  spotifyInstall "$1"
 }
 
 anacondaInstall() {
@@ -291,13 +291,6 @@ anacondaInstall() {
   conda install -c anaconda-cluster scala
   conda install -c r r-irkernel rpy2
   conda install jupyter
-}
-
-spotifyInstall() {
-  sudo -S <<< "$1" apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
-  echo deb http://repository.spotify.com stable non-free | sudo -S <<< "$1" tee /etc/apt/sources.list.d/spotify.list
-  sudo -S <<< "$1" apt-get update
-  sudo -S <<< "$1" apt-get install spotify-client
 }
 
 whatIsMyDistro() {

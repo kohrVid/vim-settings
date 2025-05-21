@@ -1,51 +1,74 @@
---require 'cpu'
-function split(s, delimiter)
-  result = {};
-  if s == nil then
-    s = ""
+local cpu = require 'conky_lua.cpu'
+local utils = require 'conky_lua.utils'
+local pid_margin = "${goto 172}"
+local cpu_margin = "${goto 260}"
+local mem_margin = "${goto 360}"
+
+function conky_top(n)
+  local top_cmd = "top -b -o %MEM -d 0.5 -U $USER | head -n "..
+    tostring(7+n)..
+    " | tail -n "..tostring(n)
+
+  local top_procs = {}
+  local top_file = io.popen(
+    "script -q -c '"..tostring(top_cmd).."' /dev/null"
+  )
+
+  if not top_file then return "" end
+
+  for top_proc in top_file:lines() do
+    local idx = #top_procs+1
+
+    if top_proc then top_procs[idx] = tostring(command_row(top_proc, idx)) end
   end
 
-  for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-    if match ~= "" then
-      table.insert(result, match);
+  top_file:close()
+
+  local filtered_procs = {
+    "${color1}Name"..pid_margin.."PID"..
+      cpu_margin.."CPU"..
+      mem_margin.."%MEM"
+  }
+
+  for _, proc in ipairs(top_procs) do
+    if proc:match("%S")
+      then
+        table.insert(filtered_procs, proc)
     end
   end
 
-  return result;
+  return table.concat(filtered_procs, "\n\t\t")
 end
 
-function conky_top(n)
-  top_cmd = "top -o %CPU | head -n "..tostring(7+n).." | tail -n "..tostring(n)
-  top_file = io.popen(top_cmd)
-  top = {}
-  for i = 1,n
-  do
-    top[i] = tostring(top_file:read())
+function command_name(name)
+  local cmd_name = tostring(name:gsub("[%z\1-\31\127]", ""))
+
+  if cmd_name:match("^%[%m")
+    then
+      return ""
+  else
+      return cmd_name
   end
-  print(top[1])
-  --top_file:close()
-
-  top_format = {}
-
-  for i = 1,n
-  do
-    local top_row = split(top[i], " ")
-    local pid = top_row[2]
-    local name = top_row[13]
-    local cpu = tonumber(top_row[10])-- / number_of_cpus()
-    local memory = top_row[11]
-
-    local colour = pick_colour(i)
-
-    --print(table.concat(top_row, ","))
-    top_format[i] = colour..tostring(name).."${goto 170}"..tostring(pid).."${goto 230}"..tostring(cpu).."${goto 310}"..tostring(memory)
-  end
-
-  --print(table.concat(top_format, "\n\t\t"))
-  return table.concat(top_format, "\n\t\t")
 end
 
-function pick_colour(row_number)
+function command_row(top_proc, idx)
+  local colour = striped_colour(idx)
+  local top_row = utils.split(top_proc, " ")
+
+  local name = command_name(top_row[12])
+  if name == "" then return "" end
+
+  local pid = top_row[1]
+  local memory = top_row[10]
+  local cpu = top_row[9] / cpu.number_of_cpus()
+
+  return colour..name..
+    pid_margin..tostring(pid)..
+    cpu_margin..tostring(cpu)..
+    mem_margin..tostring(memory)
+end
+
+function striped_colour(row_number)
   if row_number % 2 == 0 then
     return "${color2}"
   else

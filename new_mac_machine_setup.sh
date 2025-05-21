@@ -36,7 +36,7 @@ main() {
   clamScan "$RUN_SCAN" "$PASSWORD"
 
   gitConfig "$GIT_NAME" "$GIT_EMAIL" "$PASSWORD"
-  goInstall "1.21.5" "$PASSWORD"
+  goInstall "1.24.2" "$PASSWORD"
   vimConfig "$PASSWORD"
   tmuxInstall "$IS_A_VM" "$PASSWORD"
   terraformInstall "$PASSWORD"
@@ -92,6 +92,7 @@ goInstall() {
   sudo -S <<< "$2" tar -C /usr/local -xzf "go$1.darwin-amd64.tar.gz"
   source $HOME/.zshrc
   sudo -S <<< "$2" chown $USER:$USER -R $GOBIN
+  go install golang.org/x/tools/gopls@latest
 }
 
 vimConfig() {
@@ -212,8 +213,8 @@ haskellInstall() {
 postGNOMEInstall() {
   cd $HOME/Documents/Programmes
   brew install conky
-  cp $HOME/Documents/vim/vim-settings/config/conkyrc $HOME/.config/conky/conky.conf
-  cp -R $HOME/Documents/vim/vim-settings/config/conky_lua/* $HOME/.config/conky/
+  cp $HOME/Documents/vim/vim-settings/config/conky.conf $HOME/.config/conky/conky.conf
+  cp -R $HOME/Documents/vim/vim-settings/config/conky_lua $HOME/.config/conky/
   guiAppInstall $1
 }
 

@@ -26,30 +26,3 @@ if [ ! -d ~/.vim/ftdetect ]
       curl -o ~/.vim/$d/scala.vim https://raw.githubusercontent.com/derekwyatt/vim-scala/master/$d/scala.vim
     done
 fi
-
-if [[ -z $(which pt) ]]
-  then
-    OS=$(uname)
-    case $OS in
-      'Linux')
-        if [[ -n $GOPATH ]]
-        then
-          vim +GoInstallBinaries +qall
-          mkdir -p $GOPATH/src/github.com/monochromegane/
-          cd $GOPATH/src/github.com/monochromegane/
-          git clone https://github.com/monochromegane/the_platinum_searcher.git
-          cd the_platinum_searcher
-          go mod init
-          go install -v ./...
-        else
-          echo "Please set and export your GOPATH before trying again"
-        fi
-        ;;
-      'Darwin')
-        brew update && brew install pt
-        ;;
-      *)
-        echo "Please install PlatinumSearcher for $OS"
-        ;;
-    esac
-fi
