@@ -15,4 +15,16 @@ function utils.split(s, delimiter)
   return result;
 end
 
+function utils.striped_colour(colour1, colour2, row_number)
+  if (row_number % 2 == 0) then
+    return "${"..utils.unquote(colour2).."}"
+  end
+
+  return "${"..utils.unquote(colour1).."}"
+end
+
+function utils.unquote(str)
+  return tostring(str):gsub("\"", "")
+end
+
 return utils
