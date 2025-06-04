@@ -1,3 +1,13 @@
+local globals = require 'conky_lua.globals'
+
+function conky_ip()
+  return "${color1}IP Address: $color${execi "..
+    globals.interval()..
+    " wget https://ipinfo.io/ip -O - } ${color1}Country: $color${execi "..
+    globals.interval()..
+    " wget https://ipinfo.io/country -O - }"
+end
+
 function conky_lans()
   local lans = {}
   local networks = io.popen("ls /sys/class/net/")
