@@ -1,11 +1,13 @@
 local globals = require 'conky_lua.globals'
 
+local cache = {
+  last_update = 0,
+  current_ip = "",
+  current_country = "",
+}
+
 function conky_ip()
-  return "${color1}IP Address: $color${execi "..
-    globals.interval()..
-    " wget https://ipinfo.io/ip -O - } ${color1}Country: $color${execi "..
-    globals.interval()..
-    " wget https://ipinfo.io/country -O - }"
+  return "${color1}IP Address: $color${lua_parse get_ip } ${color1}Country: $color${lua_parse get_country }"
 end
 
 function conky_lans()
@@ -19,7 +21,7 @@ function conky_lans()
       tostring(network)..
       "} ${color1}Down:$color ${downspeed "..
       tostring(network)..
-      "}\n\t\t${endif}"
+      "}${endif}"
 
     if not lan then
       lans[#lans+1]= ""
@@ -30,5 +32,40 @@ function conky_lans()
 
   networks:close()
 
-  return table.concat(lans, "")
+  return table.concat(lans, "\n\t\t")
+end
+
+function conky_get_ip()
+  conky_update_api_cache()
+
+  return cache.current_ip
+end
+
+function conky_get_country()
+  conky_update_api_cache()
+
+  return cache.current_country
+end
+
+function conky_update_api_cache()
+  local now = os.time()
+
+  if now - cache.last_update >= globals.interval() then
+    -- Run wgets asynchronously
+    os.execute("wget -qO- https://ipinfo.io/ip > /tmp/conky_current_ip &")
+    os.execute("wget -qO- https://ipinfo.io/country > /tmp/conky_current_country &")
+    cache.last_update = now
+  end
+
+  local f = io.open("/tmp/conky_current_ip", "r")
+  if f then
+    cache.current_ip = f:read("*a") or ""
+    f:close()
+  end
+
+  f = io.open("/tmp/conky_current_country", "r")
+  if f then
+    cache.current_country = f:read("*a") or ""
+    f:close()
+  end
 end
