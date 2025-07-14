@@ -241,6 +241,7 @@ postGNOMEInstall() {
 guiAppInstall() {
   cd $HOME/Documents/Programmes
   echo 1 | yay --noconfirm --answerdiff=None cherrytree
+  sudo -S <<< "$1" pacman -S --noconfirm extra/texlive-latex extra/texlive-binextra
   zshInstall "$1"
   anacondaInstall "$1"
   sudo -S <<< "$1" pacman -S --noconfirm community/slack-web-jak
