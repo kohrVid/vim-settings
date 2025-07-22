@@ -29,7 +29,8 @@ function top_cmd(n, order_by)
       string.lower(tostring(order_by))
     )..
     " | head -n "..tostring(n)..
-    " | tail -n "..tostring(n)
+    " | tail -n "..tostring(n)..
+    " | sed -E 's/\\s+([0-9]+)/|\\1/g'"
 
   return cmd
 end
@@ -70,7 +71,7 @@ end
 
 function command_row(top_proc, idx)
   local colour = utils.striped_colour("color", "color2", idx)
-  local top_row = utils.split(top_proc, " ")
+  local top_row = utils.split(top_proc, "|")
 
   local name = top_row[1]
   if (name == nil) or (name == "") then return "" end
@@ -80,14 +81,14 @@ function command_row(top_proc, idx)
   local cpu = tonumber(top_row[3]) / cpu.number_of_cpus()
   local cpu_formatted = tonumber(string.format("%.2f", cpu))
 
-  return colour..name..
+  return colour..command_name(name)..
     pid_margin..tostring(pid)..
     cpu_margin..tostring(cpu_formatted)..
     mem_margin..tostring(memory)
 end
 
 function command_name(name)
-  local cmd_name = tostring(name:gsub("[%z\1-\31\127]", ""))
+  local cmd_name = tostring(name:gsub("[%z\1-\31\127]", ""):gsub("%s%s+", " "))
 
   if cmd_name:match("^%[%m")
     then
