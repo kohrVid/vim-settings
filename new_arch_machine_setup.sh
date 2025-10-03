@@ -63,6 +63,11 @@ clamScan() {
     sudo -S <<< "$2" mkdir /clam01
     sudo -S <<< "$2" touch /run/clamav/clamd.ctl
     sudo -S <<< "$2" chown clamav:clamav /run/clamav/clamd.ctl
+    sudo touch /var/log/clamav/freshclam.log
+    sudo chown clamav:clamav /var/log/clamav/freshclam.log
+    sudo systemctl enable clamav-daemon
+    sudo systemctl enable clamav-freshclam
+    sudo systemctl restart clamav-freshclam.service
     sudo -S <<< "$2" freshclam
     sudo -S <<< "$2" clamscan --recursive=yes / --move=/clam01 -l /clam01.txt
   fi
