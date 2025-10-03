@@ -89,6 +89,7 @@ goInstall() {
 vimConfig() {
   nodeInstall
   cd $HOME/Documents/vim
+  sudo -S <<< "$1" apt-get install ripgrep
 
   (git clone https://github.com/vim/vim.git &&
   cd vim/src;

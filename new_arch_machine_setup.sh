@@ -105,7 +105,7 @@ goInstall() {
 vimConfig() {
   nodeInstall
   cd $HOME/Documents/vim
-  sudo -S <<< "$1" pacman -S --noconfirm gvim
+  sudo -S <<< "$1" pacman -S --noconfirm gvim ripgrep
 
   if [ ! -d $HOME/Documents/vim/vim-settings ]
   then
